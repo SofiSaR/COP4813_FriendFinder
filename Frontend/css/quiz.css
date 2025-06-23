@@ -1,0 +1,105 @@
+@import url(general.css);
+
+#quiz-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#quiz-time-img {
+    width: 150px;
+    height: auto;
+}
+
+#quiz-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.question-container {
+    display: flex;
+    width: 100%;
+    background-color: var(--darkest-pink);
+    border-radius: 13px 13px 0px 0px;
+    padding: 20px;
+    margin: 20px 0px 0px 0px;
+}
+
+.question {
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+    width: 100%;
+}
+
+.answer-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--light-pink);
+    border-radius: 0px 0px 13px 13px;
+    padding: 20px;
+}
+
+.radio-bar-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.radio-bar-group input[type="radio"] {
+    display: none;
+}
+
+.radio-bar-group label {
+    padding: 11px 15px;
+    margin: 5px 0px;
+    background: rgba(0, 0, 0, 0.08);
+    color: black;
+    cursor: pointer;
+    border-radius: 7px;
+    user-select: none;
+}
+
+.radio-bar-group input[type="radio"]:checked + label {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+#submit-button {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    position: fixed;
+    border-radius: 9px;
+    bottom: 0px;
+    right: 20px;
+    margin: 20px;
+    z-index: 1000;
+}
+
+#scroll-button {
+    padding: 11px 15px;
+    margin: 5px 0px;
+    background: var(--darkest-pink);
+    font-size: 19px;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    border-radius: 30px;
+    width: 100%;
+}
+
+#no-answer-msg {
+    font-size: 17px;
+    padding: 20px 0px 0px 0px;
+}
