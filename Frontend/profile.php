@@ -16,7 +16,7 @@
     <!-- page title -->
     <title>Friendship Matchmaking - Profile</title>
     <!-- for CSS stylesheet -->
-    <link rel="stylesheet" href="/Frontend/css/profile.css">
+    <link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
     <main>
@@ -35,7 +35,7 @@
                             <!-- for the profile picture -->
                             <div id="profile-picture">
                                 <!-- add pic src -->
-                                <img id="profile-img" src="Frontend/images/icons/profile-picture.webp" alt="profile picture">
+                                <img id="profile-img" src="../Backend/images/icons/profile-picture.webp" alt="profile picture">
                             </div>
                             <!-- for the contact info -->
                             <div id="contact-info">

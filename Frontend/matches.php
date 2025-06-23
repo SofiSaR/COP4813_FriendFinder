@@ -16,7 +16,7 @@
     <!-- page title -->
     <title>Friendship Matchmaking - Matches</title>
     <!-- for CSS stylesheet -->
-    <link rel="stylesheet" href="/Frontend/css/matches.css">
+    <link rel="stylesheet" href="css/matches.css">
 </head>
 <body>
     <header>
@@ -24,7 +24,7 @@
         <h1 id="website-title">friendship<br>matchmaking</h1>
         <!-- for the matches icon -->
         <div id="matches-icon">
-            <img src="Frontend/images/icons/match-icon.webp" alt="match icon"> 
+            <img src="../Backend/images/icons/match-icon.webp" alt="match icon"> 
         </div>
     </header>
     <main>    
@@ -36,16 +36,16 @@
                 <div class="profile">
                     <!-- for the profile pic -->
                     <div class="profile-pic">
-                        <img src="Frontend/images/icons/hannah-pic.webp" alt="Hannah's profile picture">
+                        <img src="../Backend/images/icons/hannah-pic.webp" alt="Hannah's profile picture">
                     </div>
                     <!-- for the name tag -->
                     <div class="name-tag">
-                        <img src="Frontend/images/icons/name-tag-icon.webp" alt="Name tag icon">
+                        <img src="../Backend/images/icons/name-tag-icon.webp" alt="Name tag icon">
                         <span>Hannah</span>
                     </div>
                     <!-- for the profile link button -->
                     <button class="profile-link">
-                        <img src="Frontend/images/icons/link.webp" alt="Profile link icon">
+                        <img src="../Backend/images/icons/link.webp" alt="Profile link icon">
                         <span>View Profile</span>
                     </button>
                 </div>
@@ -53,16 +53,16 @@
                 <div class="profile">
                     <!-- for the profile pic -->
                     <div class="profile-pic">
-                        <img src="Frontend/images/icons/jeremiah-pic.webp" alt="Jeremiah's profile picture">
+                        <img src="../Backend/images/icons/jeremiah-pic.webp" alt="Jeremiah's profile picture">
                     </div>
                     <!-- for the name tag -->
                     <div class="name-tag">
-                        <img src="Frontend/images/icons/name-tag-icon.webp" alt="Name tag icon">
+                        <img src="../Backend/images/icons/name-tag-icon.webp" alt="Name tag icon">
                         <span>Jeremiah</span>
                     </div>
                     <!-- for the profile link button -->
                     <button class="profile-link">
-                        <img src="Frontend/images/icons/link.webp" alt="Profile link icon">
+                        <img src="../Backend/images/icons/link.webp" alt="Profile link icon">
                         <span>View Profile</span>
                     </button>
                 </div>
@@ -70,16 +70,16 @@
                 <div class="profile">
                     <!-- for the profile pic -->
                     <div class="profile-pic">
-                        <img src="Frontend/images/icons/nicolas-pic.webp" alt="Nicolas' profile picture">
+                        <img src="../Backend/images/icons/nicolas-pic.webp" alt="Nicolas' profile picture">
                     </div>
                     <!-- for the name tag -->
                     <div class="name-tag">
-                        <img src="Frontend/images/icons/name-tag-icon.webp" alt="Name tag icon">
+                        <img src="../Backend/images/icons/name-tag-icon.webp" alt="Name tag icon">
                         <span>Nicolas</span>
                     </div>
                     <!-- for the profile link button -->
                     <button class="profile-link">
-                        <img src="Frontend/images/icons/link.webp" alt="Profile link icon">
+                        <img src="../Backend/images/icons/link.webp" alt="Profile link icon">
                         <span>View Profile</span>
                     </button>
                 </div>
@@ -87,16 +87,16 @@
                 <div class="profile">
                     <!-- for the profile pic -->
                     <div class="profile-pic">
-                        <img src="Frontend/images/icons/huda-pic.webp" alt="Huda's profile picture">
+                        <img src="../Backend/images/icons/huda-pic.webp" alt="Huda's profile picture">
                     </div>
                     <!-- for the name tag -->
                     <div class="name-tag">
-                        <img src="Frontend/images/icons/name-tag-icon.webp" alt="Name tag icon">
+                        <img src="../Backend/images/icons/name-tag-icon.webp" alt="Name tag icon">
                         <span>Huda</span>
                     </div>
                     <!-- for the profile link button -->
                     <button class="profile-link">
-                        <img src="Frontend/images/icons/link.webp" alt="Profile link icon">
+                        <img src="../Backend/images/icons/link.webp" alt="Profile link icon">
                         <span>View Profile</span>
                     </button>
                 </div>

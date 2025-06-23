@@ -48,6 +48,12 @@ h2 {
     text-shadow: 1px 1px 1px var(--dark-pink);
 }
 
+h3 {
+    font-size: 23px;
+    font-weight: bold;
+    color: var(--signature-purple);
+}
+
 #website-title {
     font-size: 35px;
     text-align: center;
