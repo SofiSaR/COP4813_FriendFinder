@@ -1,0 +1,181 @@
+/* import styling from general.css */
+@import url(general.css);
+
+#results-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: max(300px, 70%);
+    margin: auto;
+}
+
+.title {
+    text-align: center;;
+}
+
+#results-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.category-scores {
+    min-width: 270px;
+    padding: 32px 36px;
+    align-items: flex-start;
+    box-shadow: 0 2px 10px rgba(222, 138, 170, 0.10);
+}
+
+.category-title {
+    font-size: 28px;
+    font-family: var(--title-font);
+    color: var(--signature-purple);
+    margin-bottom: 18px;
+    font-weight: bold;
+}
+
+.score-row {
+    margin-bottom: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--signature-purple);
+}
+
+.score-label {
+    font-family: var(--common-font);
+    font-weight: bold;
+}
+
+.score-value {
+    color: var(--dark-pink);
+    font-weight: normal;
+    margin-left: 4px;
+}
+
+.bar-chart-container {
+    min-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 18px;
+}
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.bar-label {
+    width: 140px;
+    font-size: 19px;
+    color: var(--signature-purple);
+    font-weight: bold;
+    font-family: var(--common-font);
+}
+
+.bar-bg {
+    flex: 1;
+    background: var(--lightest-pink);
+    border-radius: 8px;
+    height: 28px;
+    margin-left: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bar-fill {
+    background: var(--dark-pink);
+    height: 100%;
+    border-radius: 8px 0 0 8px;
+    transition: width 0.5s;
+}
+
+.bar-legend {
+    margin-top: 10px;
+    font-size: 15px;
+    color: var(--signature-purple);
+    display: flex;
+    align-items: center;
+    font-family: var(--common-font);
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--dark-pink);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 7px;
+}
+
+.recommendations {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 28px 26px;
+    gap: 28px;
+    margin-top: 30px;
+    background: var(--light-pink);
+    border-radius: 35px;
+}
+
+.friend-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 130px;
+    margin-right: 8px;
+}
+
+.friend-name {
+    font-size: 23px;
+    color: var(--signature-purple);
+    font-family: var(--common-font);
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.friend-match {
+    margin-bottom: 10px;
+}
+
+.match-circle {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 4px solid var(--signature-purple);
+    color: var(--signature-purple);
+    font-size: 22px;
+    font-family: var(--common-font);
+    font-weight: bold;
+    line-height: 40px;
+    text-align: center;
+    background: var(--background-color);
+    margin-bottom: 5px;
+}
+
+.friend-card button {
+    margin-top: 7px;
+    font-size: 16px;
+    width: 120px;
+    box-shadow: 0 2px 0 var(--lightest-pink);
+}
+
+.more-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 70px;
+}
+
+.friend-arrow {
+    font-size: 30px;
+    color: var(--signature-purple);
+    margin-top: 10px;
+}

@@ -1,0 +1,110 @@
+@import url(general.css);
+
+#login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    max-width: 450px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#profile-icon {
+    width: 150px;
+    height: 150px;
+}
+
+#signin-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 85%;
+}
+
+.signin-button {
+    width: 50%;
+    color: var(--dark-pink);
+    font-size: 30px;
+    font-family: var(--title-font);
+    text-shadow: 1px 1px 1px var(--dark-pink);
+    background-color: var(--background-color);
+    border-radius: 0px;
+    border-bottom: 4px solid var(--background-color);
+}
+
+.signin-button.active {
+    border-bottom: 4px solid var(--dark-pink);
+}
+
+#signin-container {
+    width: 100%;
+}
+
+#signin-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    padding: 7px;
+    margin: 10px 5px;
+    color: var(--signature-purple);
+    text-align: center;
+    border: 0px;
+    border-radius: 5px;
+    font-size: 25px;
+}
+
+input::placeholder {
+    color: var(--signature-purple);
+}
+
+#name-fields {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+input[type="text"] {
+    flex: 1;
+    min-width: 150px;
+}
+
+.input-w-icon {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 19px;
+    height: auto;
+    width: 30px;
+    z-index: 500;
+}
+
+#email-icon {
+    width: 31px;
+    left: 17px;
+}
+
+#lock-icon {
+    width: 26px;
+}
+
+button[type="submit"] {
+    margin-top: 20px;
+    font-size: 25px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}

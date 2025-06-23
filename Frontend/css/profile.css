@@ -1,0 +1,142 @@
+/* import styling from general.css */
+@import url(general.css);
+
+/* container for profile page */
+#profile-page {
+    padding: 50px;
+}
+
+/* container for profile image */
+#profile-img {
+    /* set width and height */
+    width: 300px;
+    height: auto;
+    object-fit: cover;
+}
+
+/* container holding profile content */
+#main-container {
+    /* center the content */
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    border-radius: 20px;
+    padding: 40px;
+    /* set a fixed max width */
+    max-width: 1000px;
+    /* set a background color */
+    background-color: white;
+}
+
+/* container holding left and right panels */
+#profile-container {
+    /* add space between panels */
+    display: flex;
+    gap: 40px;
+}
+
+/* container holding profile pic
+and contact info */
+#left-panel {
+    /* take up 40% of 
+    available width */
+    flex: 0.4;
+}
+
+/* container holding profile details header,
+bio header, and bio paragraph */
+#right-panel {
+    /* take up 40% of 
+    available width */
+    flex: 0.4;
+    /* align text in the center */
+    text-align: center;
+    /* add space to the bottom */
+    margin-bottom: 10px;
+}
+
+/* container for card styling around the
+left panel */
+#profile-card {
+    /* change background color */
+    background-color: white;
+    /* add a colorful border 
+    and set its width and padding */
+    border: 2px solid var(--dark-pink);
+    border-radius: 20px;
+    padding: 20px;
+    /* align text in the center */
+    text-align: center;
+}
+
+/* container for contact info
+header */
+#contact-info h2 {
+    /* align text to the left */
+    text-align: left;
+    /* set font size and color */
+    font-size: 24px;
+    color: var(--signature-purple);
+    /* add space at the
+    top and bottom */
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* container for name, email, and number */
+#contact-details {
+    /* align text to the left */
+    text-align: left
+}
+
+/* individual contact item styling */
+.contact-item {
+    /* add space at the bottom */
+    margin-bottom: 10px;
+    /* change its color */
+    color: var(--dark-pink);
+}
+
+/* container for styling contact label
+with name, email, and number */
+#contact-label {
+    /* display as a block */
+    display: inline-block;
+    /* set fixed width */
+    width: 100px;
+    /* change its color */
+    color: var(--dark-pink);
+}
+
+/* container for profile details header */
+#profile-details h1 {
+    /* change font size and color */
+    font-size: 40px;
+    color: var(--signature-purple);
+    /* add space at the bottom */
+    margin-bottom: 40px;
+    /* align text in the center */
+    text-align: center;
+}
+
+/* container for bio section header */
+#bio-section h2 {
+    /* align text to the left */
+    text-align: left;
+    /* set font size and color */
+    font-size: 35px;
+    color: var(--dark-pink);
+    /* add space at the bottom */
+    margin-bottom: 10px;
+}
+
+/* container for bio paragraph */
+#bio-content {
+    /* change its color */
+    color: var(--signature-purple);
+    /* set font size and line height */
+    font-size: 16px;
+    line-height: 1.6;
+    /* align the text on both sides */
+    text-align: justify;
+}
