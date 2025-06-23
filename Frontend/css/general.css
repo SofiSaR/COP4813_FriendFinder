@@ -1,0 +1,84 @@
+@font-face {
+    font-family: 'Nickainley';
+    src: url('../fonts/Nickainley-Normal.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Aptos';
+    src: url('../fonts/Aptos.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --title-font: 'Nickainley';
+    --common-font: 'Aptos';
+
+    --background-color: white;
+    --signature-purple: #9E79B6;
+    --darkest-pink: #D581A1;
+    --dark-pink: #DE8AAA;
+    --light-pink: #F9D1DF;
+    --lightest-pink: #F8DAE5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--common-font), sans-serif;
+    font-size: 15px;
+}
+
+h1 {
+    font-family: var(--title-font), sans-serif;
+    font-size: 40px;
+    font-weight: normal;
+    color: var(--signature-purple);
+    text-shadow: 1px 1px 1px var(--dark-pink);
+}
+
+h2 {
+    font-family: var(--title-font), sans-serif;
+    font-size: 25px;
+    font-weight: normal;
+    color: var(--signature-purple);
+    text-shadow: 1px 1px 1px var(--dark-pink);
+}
+
+#website-title {
+    font-size: 35px;
+    text-align: center;
+    color: var(--dark-pink);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    margin: 16px;
+    z-index: 1000;
+}
+
+.pink-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    background-color: var(--light-pink);
+    border-radius: 35px;
+    padding: 5%;
+}
+
+button {
+    background-color: var(--signature-purple);
+    color: var(--background-color);
+    font-size: 16px;
+    width: 200px;
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-bottom: 4px solid var(--darkest-pink);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
