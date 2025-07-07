@@ -23,6 +23,6 @@
         </div>
         <button id="submit-button">SUBMIT ></button>
     </main>
-    <script src="js/quiz.js"></script>
+    <script type="module" src="js/quiz.js"></script>
 </body>
 </html>

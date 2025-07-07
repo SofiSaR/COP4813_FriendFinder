@@ -6,12 +6,14 @@ USE FriendFinder;
 
 CREATE TABLE IF NOT EXISTS Users (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    pfpUrl VARCHAR(255) DEFAULT '../images/pink-profile-icon.webp',
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     phone_number VARCHAR(20) UNIQUE,
     email VARCHAR(50) NOT NULL UNIQUE,
-    pwd VARCHAR(50) NOT NULL,
-    bio VARCHAR(3000)
+    pwd VARCHAR(255) NOT NULL,
+    bio VARCHAR(3000),
+    bio_approved BOOLEAN DEFAULT FALSE
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS Quiz_Questions (
@@ -97,7 +99,7 @@ VALUES (
     'Oppenheimer',
     '+1 (111) 111-1111',
     'larry.oppenheimer@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'I really like golf and want to meet some new friends.'
 );
 
@@ -107,7 +109,7 @@ VALUES (
     'Kraimer',
     '+2 (222) 222-2222',
     'barry.kraimer@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'I really like singing and want to meet some new friends.'
 );
 
@@ -117,7 +119,7 @@ VALUES (
     'Johnson',
     '+3 (333) 333-3333',
     'alice.johnson@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Avid reader and coffee enthusiast.'
 );
 
@@ -127,7 +129,7 @@ VALUES (
     'Smith',
     '+4 (444) 444-4444',
     'bob.smith@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Enjoys hiking and outdoor adventures.'
 );
 
@@ -137,7 +139,7 @@ VALUES (
     'Lee',
     '+5 (555) 555-5555',
     'cathy.lee@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Music lover and aspiring chef.'
 );
 
@@ -147,7 +149,7 @@ VALUES (
     'Nguyen',
     '+6 (666) 666-6666',
     'david.nguyen@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Tech geek and gamer.'
 );
 
@@ -157,7 +159,7 @@ VALUES (
     'Martinez',
     '+7 (777) 777-7777',
     'ella.martinez@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Yoga fan and healthy living advocate.'
 );
 
@@ -167,7 +169,7 @@ VALUES (
     'Wright',
     '+8 (888) 888-8888',
     'frank.wright@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Movie buff and trivia master.'
 );
 
@@ -177,7 +179,7 @@ VALUES (
     'Kim',
     '+9 (999) 999-9999',
     'grace.kim@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Dog lover and marathon runner.'
 );
 
@@ -187,7 +189,7 @@ VALUES (
     'Patel',
     '+10 (101) 010-1010',
     'henry.patel@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Board game enthusiast.'
 );
 
@@ -197,7 +199,7 @@ VALUES (
     'Chen',
     '+11 (202) 020-2020',
     'ivy.chen@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Art student and museum goer.'
 );
 
@@ -207,7 +209,7 @@ VALUES (
     'Brown',
     '+12 (303) 030-3030',
     'jack.brown@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Soccer player and pizza fan.'
 );
 
@@ -217,7 +219,7 @@ VALUES (
     'Singh',
     '+13 (404) 040-4040',
     'kara.singh@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Travel blogger and photographer.'
 );
 
@@ -227,7 +229,7 @@ VALUES (
     'Garcia',
     '+14 (505) 050-5050',
     'leo.garcia@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Cyclist and foodie.'
 );
 
@@ -237,7 +239,7 @@ VALUES (
     'Ali',
     '+15 (606) 060-6060',
     'mona.ali@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Poet and tea drinker.'
 );
 
@@ -247,7 +249,7 @@ VALUES (
     'Evans',
     '+16 (707) 070-7070',
     'nate.evans@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Basketball fan and sneakerhead.'
 );
 
@@ -257,7 +259,7 @@ VALUES (
     'White',
     '+17 (808) 080-8080',
     'olivia.white@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Gardener and animal lover.'
 );
 
@@ -267,7 +269,7 @@ VALUES (
     'Young',
     '+18 (909) 090-9090',
     'paul.young@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Runner and podcast addict.'
 );
 
@@ -277,7 +279,7 @@ VALUES (
     'Davis',
     '+19 (111) 111-2222',
     'quinn.davis@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Chess player and coder.'
 );
 
@@ -287,7 +289,7 @@ VALUES (
     'Lopez',
     '+20 (222) 222-3333',
     'rita.lopez@randomsite.com',
-    '1234',
+    '$2y$10$ccn16b9/IDS.E5vPOLylR.XfAlRVoS4PCK8TjVQ02MCd2Xj1gK4OW',
     'Dancer and language learner.'
 );
 

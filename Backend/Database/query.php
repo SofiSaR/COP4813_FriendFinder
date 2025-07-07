@@ -1,4 +1,8 @@
 <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -34,7 +38,8 @@
         die("Connection failed: " . $db->connect_error);
     }
 
-    $query = $_GET['sql'];
+    $data = json_decode(file_get_contents('php://input'), true);
+    $query = $data['sql'];
     $result = $db->query($query);
 
     if (strpos($query, 'SELECT') !== false)

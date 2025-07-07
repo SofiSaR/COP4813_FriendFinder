@@ -1,0 +1,145 @@
+@import url(../../css/general.css);
+
+#results-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+@media (max-width: 1150px) {
+  #results-section {
+    flex-direction: column;
+  }
+}
+
+.score-row {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--signature-purple);
+}
+
+.score-label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.score-value {
+    font-size: 20px;
+    font-weight: normal;
+    margin-left: 4px;
+}
+
+.bar-chart {
+    width: 400px;
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.bar-categories {
+    margin-top: 52px;
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-items: right;
+    margin-bottom: 20px;
+}
+
+.bar-chart-wo-categories {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 18px;
+}
+
+.bar-chart-wo-cat-leg-nums {
+    height: 100%;
+    position: relative;
+}
+
+.bars {
+    z-index: 5;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    top: 0;
+    left: 0;
+    position: relative;
+}
+
+.bar-label {
+    justify-content: right;
+    text-align: right;
+    text-justify: center;
+    margin-right: 20px;
+    font-size: 17px;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    color: black;
+    font-family: var(--common-font);
+}
+
+.bar {
+    background: var(--dark-pink);
+    z-index: 6;
+    border-radius: 3px;
+    display: flex;
+    margin-bottom: 2%;
+    height: 28%;
+    overflow: hidden;
+}
+
+.bar-legend {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    justify-content: center;
+    justify-items: center;
+    font-family: var(--common-font);
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--dark-pink);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 7px;
+}
+
+.x-axis {
+    display: flex;
+    z-index: 2;
+    flex-direction: row;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+.x-axis-unit {
+    display: flex;
+    width: 20%;
+    border-left: 1px solid #eeeeee;
+    border-right: 1px solid #eeeeee;
+    height: 100%;
+}
+
+.x-axis-labels {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

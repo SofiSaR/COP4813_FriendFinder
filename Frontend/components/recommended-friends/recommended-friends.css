@@ -1,0 +1,114 @@
+@import url(../../css/general.css);
+
+.recommendations {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 28px 26px;
+    gap: 28px;
+    margin-top: 30px;
+    background: var(--lightest-pink);
+    border-radius: 35px;
+}
+
+#recommendations-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 28px;
+}
+
+.friend-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 8px;
+}
+
+.friend-name {
+    font-size: 23px;
+    color: var(--dark-pink);
+    font-family: var(--common-font);
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.friend-match {
+    margin-bottom: 10px;
+}
+
+.friend-card button {
+    margin-top: 7px;
+    font-size: 16px;
+    width: 175px;
+    box-shadow: 0 2px 0 var(--lightest-pink);
+}
+
+.more-card {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    min-width: 70px;
+}
+
+.more-text {
+    color: var(--signature-purple);
+}
+
+.more-arrow {
+    width: 27px;
+    height: auto;
+}
+
+.view-profile {
+    font-size: 20px;
+    width: 300px;
+}
+
+.name-and-circle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.match-circle {
+    width: 50px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.match-circle-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    /* background: conic-gradient(var(--dark-pink) calc(63*3.6deg), transparent 0deg); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner-circle {
+    z-index: 2;
+    margin: auto;
+    position: absolute;
+    top: calc((100% - 80%) / 2);
+    left: calc((100% - 80%) / 2);
+    color: var(--darkest-pink);
+    font-family: var(--title-font);
+    font-size: 24px;
+    text-shadow: 1px 1px 1px var(--dark-pink);
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    background: var(--lightest-pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

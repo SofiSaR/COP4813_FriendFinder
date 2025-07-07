@@ -6,11 +6,23 @@ session_start();
     $email     = $_POST['email'];
     $password  = $_POST['password'];
 
-    // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     $check_sql = "SELECT id FROM Users WHERE email = '$email'";
-    $url = 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php?sql=' . urlencode($check_sql);
-    $json_response = file_get_contents($url);
+    $jsonSQL = json_encode(['sql' => $check_sql]);
+
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, 'query.php');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($jsonSQL)
+    ]);
+
+    $json_response = curl_exec($ch);
     $result = json_decode($json_response, true);
 
     if (!empty($result)) {
@@ -18,13 +30,38 @@ session_start();
         exit();
     }
 
-    $insert_sql = "INSERT INTO Users (first_name, last_name, email, pwd) VALUES ('$firstName', '$lastName', '$email', '$password')";
-    $url = 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php?sql=' . urlencode($insert_sql);
-    file_get_contents($url);
+    $insert_sql = "INSERT INTO Users (first_name, last_name, email, pwd) VALUES ('$firstName', '$lastName', '$email', '$hashedPassword')";
+    $jsonSQL = json_encode(['sql' => $insert_sql]);
+
+
+    curl_reset($ch);
+
+    curl_setopt($ch, CURLOPT_URL, 'query.php');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($jsonSQL)
+    ]);
+
+    curl_exec($ch);
 
     $get_id_sql = "SELECT id FROM Users WHERE email = '$email'";
-    $url = 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php?sql=' . urlencode($get_id_sql);
-    $json_response = file_get_contents($url);
+    $jsonSQL = json_encode(['sql' => $get_id_sql]);
+
+    curl_reset($ch);
+
+    curl_setopt($ch, CURLOPT_URL, 'query.php');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($jsonSQL)
+    ]);
+
+    $json_response = curl_exec($ch);
     $result = json_decode($json_response, true);
 
     if (!empty($result)) {
