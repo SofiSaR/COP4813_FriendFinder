@@ -13,7 +13,14 @@ CREATE TABLE IF NOT EXISTS Users (
     email VARCHAR(50) NOT NULL UNIQUE,
     pwd VARCHAR(255) NOT NULL,
     bio VARCHAR(3000),
-    bio_approved BOOLEAN DEFAULT FALSE
+    bio_approved BOOLEAN DEFAULT FALSE,
+    account_active BOOLEAN DEFAULT TRUE
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS Admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    pwd VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS Quiz_Questions (
@@ -92,6 +99,7 @@ VALUES
 -- CREATING FAKE DATA FOR PURPOSE OF PROTOTYPE
 
 -- creating users
+-- all users have password 1234
 
 INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
@@ -293,6 +301,10 @@ VALUES (
     'Dancer and language learner.'
 );
 
+-- creating one valid admin account; password is password123
+
+INSERT INTO Admins (email, pwd)
+VALUES ('jeremysway@admins.com', '$2y$10$MfpFcx72kqsZ3GR.OdgXBOFHjGZjEwdDgMSVC8C0TEWhhyDNKpUyK');
 
 -- creating quiz responses and scores
 

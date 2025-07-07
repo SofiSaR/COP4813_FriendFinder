@@ -4,7 +4,7 @@
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "SELECT id, pwd, account_active FROM Users WHERE email = '$email'";
+    $sql = "SELECT id, pwd FROM Admins WHERE email = '$email'";
 
     $jsonSQL = json_encode(['sql' => $sql]);
 
@@ -24,9 +24,9 @@
 
     curl_close($ch);
 
-    if (!empty($result) && password_verify($password, $result[0]['pwd']) && $result[0]['aaccount_active'] == 1) {
+    if (!empty($result) && password_verify($password, $result[0]['pwd'])) {
         $_SESSION['user_id'] = $result[0]['id'];
-        $_SESSION['admin'] = false;
+        $_SESSION['admin'] = true;
         session_write_close();
         echo 'true';
     }

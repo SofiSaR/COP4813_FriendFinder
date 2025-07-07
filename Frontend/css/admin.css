@@ -1,0 +1,87 @@
+@import url(general.css);
+
+#admin-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1350px;
+    margin: 50px auto;
+}
+
+#user-management-table {
+    width: 1350px;
+    margin-top: 40px;
+}
+
+tr {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+th, td {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    margin: auto;
+    display: flex;
+    justify-content: left;
+    align-content: left;
+}
+
+.table-button {
+    width: 100%;
+    font-size: 13px;
+    padding: 7px 15px;
+}
+
+#add-user-button {
+    width: 100%;
+}
+
+th:nth-child(1), td:nth-child(1) {
+  width: 5%;
+}
+
+th:nth-child(2), td:nth-child(2) {
+  width: 10%;
+}
+
+th:nth-child(3), td:nth-child(3) {
+  width: 7%;
+}
+
+th:nth-child(4), td:nth-child(4) {
+  width: 10%;
+}
+
+th:nth-child(5), td:nth-child(5) {
+  width: 10%;
+}
+
+th:nth-child(6), td:nth-child(6) {
+  width: 10%;
+}
+
+th:nth-child(7), td:nth-child(7) {
+  width: 10%;
+}
+
+th:nth-child(8), td:nth-child(8) {
+  width: 10%;
+}
+
+th:nth-child(9), td:nth-child(9) {
+  width: 7%;
+}
+
+th:nth-child(10), td:nth-child(10) {
+  width: 10%;
+}
+
+th:nth-child(11), td:nth-child(11) {
+  width: 5%;
+}
+
+th:nth-child(12), td:nth-child(12) {
+  width: 6%;
+}

@@ -139,3 +139,13 @@ export async function fetchMatches(userId, limit) {
     });
     return matches.json();
 }
+
+export async function fetchUserProfile(userId) {
+    const userQuery = `SELECT * FROM Users WHERE id = ${userId};`;
+    const user = await fetch(`../Backend/Database/query.php`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sql: userQuery})
+    });
+    return user.json();
+}
