@@ -1,21 +1,45 @@
+// import functions to check id, submit quiz responses,
+// and fetch questions from backend
 import { checkId, submitQuizResponses, fetchQuestions } from '../Backend/BusinessLogic/backend-functions.js';
 
+// create JSON object 
+// to hold inputted answers
 let answers = {};
 
 document.addEventListener('DOMContentLoaded', () => {
+    // call function to
+    // check user's id
     checkId();
+
+    // call function to fetch
+    // the questions
     populateQuestionCont(fetchQuestions());
 
+    // get the submit button
     const submitButton = document.getElementById('submit-button');
 
+    // if a user clicks on
+    // the submit button
     submitButton.addEventListener('click', () => {
+        // call function to
+        // submit quiz responses
         submitQuizResponses(answers)
+
+        // redirect to quiz results page
         window.location.href = 'quiz-results.php';
     });
 });
 
+// create function to populate
+// the questions container
 function populateQuestionCont(questions) {
+    // get the quiz container
     const quizContainer = document.getElementById('quiz-container');
+
+    // use a map to create all questions
+    // in the quiz container. identify
+    // questions by their id. add scroll button
+    // to see every question
     quizContainer.innerHTML = questions.map(question => `
         <div class="question-container">
             <h3 class="question">${question.prompt_text}</h3>
@@ -37,8 +61,11 @@ function populateQuestionCont(questions) {
         </div>
     `).join('');
 
+    // loop through each question
     questions.forEach(question => {
         for (let i = 1; i <= 5; i++) {
+            // edit answer's JSON to whichever value (1 through 5)
+            // the user selects
             const input = document.getElementById(`option-${question.id}-${i}`);
             if (input) {
                 input.addEventListener('change', (e) => {

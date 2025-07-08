@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // get the table with all 
+    // user info
     const userManagementTable = document.getElementById('user-management-table');
 
+    // add table headers
     userManagementTable.innerHTML = `
         <thead>
             <tr>
@@ -20,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </thead>
     `;
 
+    // add row for each user with
+    // their personal details to the table
+    // also add buttons for edit and delete functionality
     fetch(`../Backend/Database/admin.php`, {
         method: 'GET'
     })
@@ -49,25 +55,45 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
         userManagementTable.innerHTML += `</tbody>`;
 
+        // for deleting a user from the table
+        // if the admin clicks on the delete button
         const deleteButtons = userManagementTable.querySelectorAll('.delete-user');
         deleteButtons.forEach(button => {
             button.addEventListener('click', () => {
+                // get the user's id
                 const userId = button.getAttribute('user-id');
+
+                // use it to delete the user
                 fetch(`../Backend/Database/admin.php?userId=${userId}`, {
                     method: 'DELETE'
                 });
+
+                // refresh the page automatically
                 window.location.reload();
             });
         });
+
+        // for editing any user info from the
+        // table if the admin clicks on the edit button
         const editButtons = userManagementTable.querySelectorAll('.edit-user');
         editButtons.forEach(button => {
             button.addEventListener('click', () => {
+                // get the user's id
                 const userId = button.getAttribute('user-id');
+
+                // redirect to the edit user page,
+                // so admin can make changes there
                 window.location.href = `edit-user.php?userId=${userId}`;
             });
         });
+
+        // for adding a user to the table
+        // if the admin clicks on the add button, 
+        // located below the table
         const addUserButton = document.getElementById('add-user-button');
         addUserButton.addEventListener('click', () => {
+            // redirect to the add user page,
+            // so admin can add user details there
             window.location.href = 'add-user.php';
         });
     });
