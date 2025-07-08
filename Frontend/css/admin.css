@@ -10,7 +10,7 @@
 
 #user-management-table {
     width: 1350px;
-    margin-top: 40px;
+    margin: 40px 0px 20px 0px;
 }
 
 tr {
@@ -19,13 +19,29 @@ tr {
     flex-direction: row;
 }
 
+th {
+    font-family: var(--title-font), sans-serif;
+    font-size: 16.5px;
+    font-weight: bold;
+    color: var(--darkest-pink);
+    border-bottom: 2px solid var(--dark-pink);
+    padding-bottom: 10px;
+}
+
 th, td {
     word-break: break-word;
     overflow-wrap: break-word;
     margin: auto;
-    display: flex;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     justify-content: left;
     align-content: left;
+    padding-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .table-button {
@@ -39,7 +55,7 @@ th, td {
 }
 
 th:nth-child(1), td:nth-child(1) {
-  width: 5%;
+  width: 6%;
 }
 
 th:nth-child(2), td:nth-child(2) {
@@ -51,7 +67,7 @@ th:nth-child(3), td:nth-child(3) {
 }
 
 th:nth-child(4), td:nth-child(4) {
-  width: 10%;
+  width: 9%;
 }
 
 th:nth-child(5), td:nth-child(5) {
@@ -71,11 +87,11 @@ th:nth-child(8), td:nth-child(8) {
 }
 
 th:nth-child(9), td:nth-child(9) {
-  width: 7%;
+  width: 8%;
 }
 
 th:nth-child(10), td:nth-child(10) {
-  width: 10%;
+  width: 9%;
 }
 
 th:nth-child(11), td:nth-child(11) {

@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS Quiz_Responses (
     user_id INT NOT NULL,
     question_id INT NOT NULL,
     response INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES Users(id),
-    FOREIGN KEY (question_id) REFERENCES Quiz_Questions(id)
+    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
+    FOREIGN KEY (question_id) REFERENCES Quiz_Questions(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS Quiz_Scores (
@@ -48,14 +48,14 @@ CREATE TABLE IF NOT EXISTS Quiz_Scores (
     reliability_score INT NOT NULL,
     athleticism_score INT NOT NULL,
     availability_score INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES Users(id)
+    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS Matches (
     user1_id INT NOT NULL,
     user2_id INT NOT NULL,
-    FOREIGN KEY (user1_id) REFERENCES Users(id),
-    FOREIGN KEY (user2_id) REFERENCES Users(id),
+    FOREIGN KEY (user1_id) REFERENCES Users(id) ON DELETE CASCADE,
+    FOREIGN KEY (user2_id) REFERENCES Users(id) ON DELETE CASCADE,
     PRIMARY KEY (user1_id, user2_id)
 ) ENGINE=InnoDB;
 

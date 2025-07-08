@@ -54,6 +54,12 @@ h3 {
     color: var(--signature-purple);
 }
 
+h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--darkest-pink);
+}
+
 #website-title {
     font-size: 35px;
     text-align: center;

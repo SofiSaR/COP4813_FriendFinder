@@ -39,21 +39,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const lastName = document.getElementById('last-name-field').value.trim();
         const email = document.getElementById('email-field').value.trim();
         const password = document.getElementById('password-field').value.trim();
-        let msgIndex = 0;
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+        errorMessages.forEach(msg => msg.style.display = 'none');
+
         if (!email || !password) {
-            errorMessages[msgIndex].style.display = '';
+            document.getElementById('empty-fields-msg').style.display = '';
             return;
         }
-        errorMessages[msgIndex].style.display = 'none';
-        msgIndex++;
+        document.getElementById('empty-fields-msg').style.display = 'none';
         if (!emailPattern.test(email)) {
-            errorMessages[msgIndex].style.display = '';
+            document.getElementById('invalid-email-msg').style.display = '';
             return;
         }
-        errorMessages[msgIndex].style.display = 'none';
-        msgIndex++;
+        document.getElementById('invalid-email-msg').style.display = 'none';
         if (action === 'login') {
             const loginData = new FormData();
             loginData.append('email', email);
@@ -70,22 +69,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.location.href = 'profile.php';
                     return;
                 }
-                else {
-                    errorMessages[msgIndex].style.display = '';
+                if (text === 'inactive') {
+                    document.getElementById('inactive-acc-msg').style.display = '';
+                    return;
+                }
+                document.getElementById('inactive-acc-msg').style.display = 'none';
+                if (text === 'false') {
+                    document.getElementById('invalid-login-msg').style.display = '';
                     return;
                 }
             });
             return;
         }
-        errorMessages[msgIndex].style.display = 'none';
-        msgIndex++;
+        document.getElementById('invalid-login-msg').style.display = 'none';
         if (action === 'signup') {
             if (password.length < 8) {
-                errorMessages[msgIndex].style.display = '';
+                document.getElementById('invalid-password-msg').style.display = '';
                 return;
             }
-            errorMessages[msgIndex].style.display = 'none';
-            msgIndex++;
+            document.getElementById('invalid-password-msg').style.display = 'none';
             const signupData = new FormData();
             signupData.append('firstName', firstName);
             signupData.append('lastName', lastName);
@@ -103,16 +105,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 if (text === 'false') {
-                    errorMessages[msgIndex].style.display = '';
+                    document.getElementById('existing-email-msg').style.display = '';
                     return;
                 }
-                errorMessages[msgIndex].style.display = 'none';
-                msgIndex++;
+                document.getElementById('existing-email-msg').style.display = 'none';
                 if (text === 'failed') {
-                    errorMessages[msgIndex].style.display = '';
+                    document.getElementById('login-failure-msg').style.display = '';
                     return;
                 }
-                errorMessages[msgIndex].style.display = 'none';
+                document.getElementById('login-failure-msg').style.display = 'none';
             });
             return;
         }

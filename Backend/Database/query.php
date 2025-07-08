@@ -40,6 +40,7 @@
 
     $data = json_decode(file_get_contents('php://input'), true);
     $query = $data['sql'];
+    // echo $query;
     $result = $db->query($query);
 
     if (strpos($query, 'SELECT') !== false)

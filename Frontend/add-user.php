@@ -8,15 +8,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/edit-user.css">
-    <title>Edit User Info</title>
+    <link rel="stylesheet" href="css/add-user.css">
+    <title>Add User</title>
 </head>
 <body>
     <main>
         <h1 id="website-title">friendship<br>matchmaking</h1>
-        <div id="edit-user-page">
-            <h1>Edit User</h1>
-            <form id="edit-user-form">
+        <div id="add-user-page">
+            <h1>Add User</h1>
+            <form id="add-user-form">
                 <label for="pfpUrl">Profile Pic URL:</label>
                 <input type="text" id="pfpUrl" name="pfpUrl">
 
@@ -52,6 +52,6 @@
             </form>
         </div>
     </main>
-    <script type="module" src="js/edit-user.js"></script>
+    <script type="module" src="js/add-user.js"></script>
 </body>
 </html>

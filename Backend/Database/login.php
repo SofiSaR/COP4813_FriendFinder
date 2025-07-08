@@ -24,11 +24,14 @@
 
     curl_close($ch);
 
-    if (!empty($result) && password_verify($password, $result[0]['pwd']) && $result[0]['aaccount_active'] == 1) {
+    if (!empty($result) && password_verify($password, $result[0]['pwd']) && $result[0]['account_active'] == 1) {
         $_SESSION['user_id'] = $result[0]['id'];
         $_SESSION['admin'] = false;
         session_write_close();
         echo 'true';
+    }
+    else if (!empty($result) && password_verify($password, $result[0]['pwd']) && $result[0]['account_active'] == 0) {
+        echo 'inactive';
     }
     else
         echo 'false';

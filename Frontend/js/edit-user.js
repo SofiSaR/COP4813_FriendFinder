@@ -20,4 +20,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    document.getElementById('edit-user-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        formData.append('id', userId); // Append userId to the form data
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    
+        checkboxes.forEach(checkbox => {
+            if (!formData.has(checkbox.name))
+                formData.append(checkbox.name, checkbox.checked ? 1 : 0); // or 0
+            else
+                formData.set(checkbox.name, checkbox.checked ? 1 : 0); // Ensure boolean values are stored as 1 or 0
+        });
+
+        console.log('Form Data:', Object.fromEntries(formData.entries()));
+        fetch(`../Backend/Database/admin.php`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(Object.fromEntries(formData.entries()))
+        });
+        window.location.href = 'admin.php';
+    });
 });

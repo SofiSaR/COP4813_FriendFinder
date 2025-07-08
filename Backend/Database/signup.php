@@ -63,6 +63,7 @@ session_start();
 
     $json_response = curl_exec($ch);
     $result = json_decode($json_response, true);
+    echo $json_response;
 
     if (!empty($result)) {
         $_SESSION['user_id'] = $result[0]['id'];

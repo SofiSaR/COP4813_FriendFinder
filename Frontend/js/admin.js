@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${user.email}</td>
                 <td>${user.pwd}</td>
                 <td>${user.bio}</td>
-                <td>${user.bio_approved}</td>
-                <td>${user.account_active}</td>
+                <td>${user.bio_approved == 1 ? "Yes" : "No"}</td>
+                <td>${user.account_active == 1 ? "Yes" : "No"}</td>
                 <td>
                     <button class="edit-user table-button" user-id="${user.id}">Edit</button>
                 </td>
@@ -53,16 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const userId = button.getAttribute('user-id');
-                fetch(`../Backend/Database/delete-user.php?userId=${userId}`, {
+                fetch(`../Backend/Database/admin.php?userId=${userId}`, {
                     method: 'DELETE'
-                })
-                .then(response => response.text())
-                .then(text => {
-                    if (text === 'true') {
-                        button.closest('tr').remove();
-                    } else {
-                        alert('Failed to delete user.');
-                    }
                 });
             });
         });
