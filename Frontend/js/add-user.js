@@ -18,6 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'POST',
             body: formData
         });
-        // window.location.href = 'admin.php';
+        window.location.href = 'admin.php';
     });
 });

@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 fetch(`../Backend/Database/admin.php?userId=${userId}`, {
                     method: 'DELETE'
                 });
+                window.location.reload();
             });
         });
         const editButtons = userManagementTable.querySelectorAll('.edit-user');

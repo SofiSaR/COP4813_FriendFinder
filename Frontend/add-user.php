@@ -48,7 +48,7 @@
                     <input type="checkbox" name="account_active">
                 </div>
 
-                <button type="submit">Save Changes</button>
+                <button type="submit">Add User</button>
             </form>
         </div>
     </main>
