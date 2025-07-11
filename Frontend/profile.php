@@ -17,6 +17,8 @@
     <title>Friendship Matchmaking - Profile</title>
     <!-- for CSS stylesheet -->
     <link rel="stylesheet" href="css/profile.css">
+    <!-- for the JS script -->
+    <script src="js/profile.js"></script>
 </head>
 <body>
     <main>
@@ -34,29 +36,30 @@
                         <div id="profile-card">
                             <!-- for the profile picture -->
                             <div id="profile-picture">
-                                <!-- add pic src -->
+                                <!-- pic will be loaded dynamically -->
                                 <img id="profile-img" src="../Backend/images/icons/profile-picture.webp" alt="profile picture">
                             </div>
                             <!-- for the contact info -->
                             <div id="contact-info">
                                 <!-- header -->
                                 <h2>Contact Info</h2>
-                                <!-- for the contact details -->
+                                <!-- for the contact details 
+                                which will be loaded dynamically -->
                                 <div id="contact-details">
                                     <!-- contact item and label for name -->
                                     <div class="contact-item">
                                         <span class="contact-label">Name:</span>
-                                        <span>Dionne Davenport</span>
+                                        <span>Loading...</span>
                                     </div>
                                     <!-- contact item and label for email -->
                                     <div class="contact-item">
                                         <span class="contact-label">Email:</span>
-                                        <span>dionne@gmail.com</span>
+                                        <span>Loading...</span>
                                     </div>
                                     <!-- contact item and label for phone -->
                                     <div class="contact-item">
                                         <span class="contact-label">Phone #:</span>
-                                        <span>+1 (777) 777-777</span>
+                                        <span>Loading...</span>
                                     </div>
                                 </div>
                             </div>
@@ -72,11 +75,9 @@
                             <h2>Bio</h2>
                             <!-- for the bio content -->
                             <div id="bio-content">
-                                <!-- add paragraph -->
-                                <p>Hi, guys! I am Dionne, and I love trying new foods, reading, and exploring different places. 
-                                When I am not working as a chef, you will find me planning my next adventure. 
-                                I am looking for spontaneous friends who share my interests and enjoy outdoor activities.
-                                Please feel free to contact me if you believe we would get along. I look forward to hearing from you!</p>
+                                <!-- paragraph will be
+                                loaded dynamically -->
+                                <p>Loading...</p>
                             </div>
                         </div>
                     </div>
