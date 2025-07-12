@@ -68,10 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const action = event.submitter.value;
 
         // variable for signing up as a user
-        const firstName = document.getElementById('first-name-field').value.trim();
-        const lastName = document.getElementById('last-name-field').value.trim();
-        const email = document.getElementById('email-field').value.trim();
-        const password = document.getElementById('password-field').value.trim();
+        let firstName = document.getElementById('first-name-field').value.trim();
+        let lastName = document.getElementById('last-name-field').value.trim();
+        let email = document.getElementById('email-field').value.trim();
+        let password = document.getElementById('password-field').value.trim();
 
         // variable to maintain the
         // valid email pattern
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // if email or password fields
         // are empty
-        if (!email || !password) {
+        if (!email || !password || (action === 'signup' && (!firstName || !lastName))) {
             // display error msg
             document.getElementById('empty-fields-msg').style.display = '';
             return;
@@ -212,13 +212,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 // account is created
                 if (text === 'failed') {
                     // display error msg
-                    document.getElementById('login-failure-msg').style.display = '';
+                    document.getElementById('signup-failure-msg').style.display = '';
                     return;
                 }
 
                 // hide error msg about
                 // login failure
-                document.getElementById('login-failure-msg').style.display = 'none';
+                document.getElementById('signup-failure-msg').style.display = 'none';
             });
             return;
         }

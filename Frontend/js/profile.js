@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function loadUserProfile() {
         // fetch user data from 
         // the PHP API endpoint
-        const response = await fetch('get-profile-details.php', {
+        const response = await fetch('/COP4813_FriendFinder/Backend/Database/get-profile-details.php', {
             method: 'GET',
             credentials: 'same-origin'
         });
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (profileImg) {
                 // use provide picture
                 // or default icon
-                profileImg.src = userData.data.pfpUrl || '../Backend/images/icons/pink-profile-icon.webp';
+                profileImg.src = userData.data.pfpUrl || '/COP4813_FriendFinder/Backend/images/icons/pink-profile-icon.webp';
             }
 
             // call function to

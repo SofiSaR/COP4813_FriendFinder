@@ -13,7 +13,7 @@ session_start();
 
     $ch = curl_init();
 
-    curl_setopt($ch, CURLOPT_URL, 'query.php');
+    curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -36,7 +36,7 @@ session_start();
 
     curl_reset($ch);
 
-    curl_setopt($ch, CURLOPT_URL, 'query.php');
+    curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -52,7 +52,7 @@ session_start();
 
     curl_reset($ch);
 
-    curl_setopt($ch, CURLOPT_URL, 'query.php');
+    curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -63,7 +63,6 @@ session_start();
 
     $json_response = curl_exec($ch);
     $result = json_decode($json_response, true);
-    echo $json_response;
 
     if (!empty($result)) {
         $_SESSION['user_id'] = $result[0]['id'];

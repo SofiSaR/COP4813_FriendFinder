@@ -65,6 +65,7 @@ class ResultsSection extends HTMLElement {
     }
 
     showScores(scores) {
+        console.log("Scores:", scores);
         const scoreSet = [ scores.sociability_score, scores.adventurousness_score, scores.reliability_score, scores.athleticism_score, scores.availability_score ];
 
         const barsContainer = this.shadowRoot.querySelector('.bars');

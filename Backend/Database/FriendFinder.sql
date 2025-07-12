@@ -6,7 +6,7 @@ USE FriendFinder;
 
 CREATE TABLE IF NOT EXISTS Users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    pfpUrl VARCHAR(255) DEFAULT '../images/pink-profile-icon.webp',
+    pfpUrl VARCHAR(255) DEFAULT '/COP4813_FriendFinder/Backend/images/icons/pink-profile-icon.webp',
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     phone_number VARCHAR(20) UNIQUE,

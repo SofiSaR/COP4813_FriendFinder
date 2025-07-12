@@ -1,19 +1,17 @@
 // import functions to check id, submit quiz responses,
 // and fetch questions from backend
-import { checkId, submitQuizResponses, fetchQuestions } from '../Backend/BusinessLogic/backend-functions.js';
+import { checkId, submitQuizResponses, fetchQuestions } from '../../Backend/BusinessLogic/backend-functions.js';
 
 // create JSON object 
 // to hold inputted answers
 let answers = {};
 
 document.addEventListener('DOMContentLoaded', () => {
-    // call function to
-    // check user's id
-    checkId();
-
     // call function to fetch
     // the questions
-    populateQuestionCont(fetchQuestions());
+    fetchQuestions().then(questions => {
+        populateQuestionCont(questions);
+    });
 
     // get the submit button
     const submitButton = document.getElementById('submit-button');
@@ -23,10 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     submitButton.addEventListener('click', () => {
         // call function to
         // submit quiz responses
-        submitQuizResponses(answers)
+        checkId().then(userIdData => {
+            submitQuizResponses(answers, userIdData.user_id);
+        });
 
         // redirect to quiz results page
-        window.location.href = 'quiz-results.php';
+        // window.location.href = 'quiz-results.php';
     });
 });
 
