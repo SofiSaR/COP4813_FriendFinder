@@ -26,7 +26,9 @@
     // prepare and execute query 
     // to fetch user data
     $stmt = $conn->prepare("
-        SELECT CAST((COUNT(*)/25) AS INT) as num_quiz_submissions FROM Quiz_Responses;
+        SELECT 
+         (SELECT CAST((COUNT(*)/25) AS INT) FROM Quiz_Responses) as num_quiz_submissions,
+         (SELECT COUNT(*) FROM Users) as num_users;
     ");
     $stmt->execute();
     $result = $stmt->get_result();

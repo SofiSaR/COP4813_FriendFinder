@@ -1,27 +1,12 @@
 // import backend functions
-import { fetchMatches, fetchUserProfile } from '/COP4813_FriendFinder/Backend/backend-functions.js';
+import { fetchMatches, checkId, fetchUserProfile } from '/COP4813_FriendFinder/Backend/BusinessLogic/backend-functions.js';
 
-// get the id of the current 
-// user who is logged in from session
-async function getCurrentUserId() {
-    try {
-        // fetch user id using
-        // get-user-id.php
-        const response = await fetch('/COP4813_FriendFinder/Backend/get-user-id.php');
 
-        // wait for the json response
-        const userData = await response.json();
-
-        // return the user id
-        return userData.user_id;
-    } 
-    catch (error) {
-        // log error to console 
-        // for debugging
-        console.error('Error fetching current user ID:', error);
-        return null;
-    }
-}
+// call the function to load
+// the matches when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    checkId().then(userIdData => { loadMatches(userIdData.user_id); });
+});
 
 // create profile HTML element
 // which will have the img, name tag,
@@ -67,7 +52,7 @@ function viewProfile(userId) {
 
 // function to load and display
 // user's top 20 matches
-async function loadMatches() {
+async function loadMatches(userId) {
     try {
         // get the main-container section
         // section from the matches page
@@ -76,25 +61,21 @@ async function loadMatches() {
         // show that the matches 
         // are loading
         mainContainer.innerHTML = '<div class="loading">Loading your matches...</div>';
-        
-        // get the id of the user
-        // currently logged in
-        const currentUserId = await getCurrentUserId();
 
         // if the user is not logged in
-        if (!currentUserId) {
+        if (!userId) {
             // display error message
             mainContainer.innerHTML = '<div class="error">Unable to load matches. Please log in to view your matches.</div>';
 
             // redirect to login page
-            window.location.href = '/COP4813_FriendFinder/Frontend/login.php';
+            window.location.href = '/COP4813_FriendFinder/Frontend/login.html';
 
             return;
         }
         
         // call function to 
         // fetch top 20 matches
-        const matchesData = await fetchMatches(currentUserId, 20);
+        const matchesData = await fetchMatches(userId, 20);
         
         // clear loading state
         mainContainer.innerHTML = '';
@@ -131,14 +112,10 @@ async function loadMatches() {
 // globally accessible
 window.viewProfile = viewProfile;
 
-// call the function to load
-// the matches when the page loads
-document.addEventListener('DOMContentLoaded', loadMatches);
-
 // function to load
 // the matches again
 function refreshMatches() {
-    loadMatches();
+    checkId().then(userIdData => { loadMatches(userIdData.user_id); });
 }
 
 // make refresh function 

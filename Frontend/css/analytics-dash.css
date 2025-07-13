@@ -1,0 +1,61 @@
+@import url(general.css);
+
+#analytics-page {
+    padding: 50px;
+    background-color: var(--light-pink);
+    justify-items: center;
+    min-height: 100%;
+    width: 100%;
+}
+
+.analytics-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 15px;
+    width: 100%;
+    align-items: center;
+    border: 1.5px solid var(--dark-pink);
+    background-color: white;
+    border-radius: 25px;
+}
+
+.analytics-cards {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.analytics-card {
+    flex: 1;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0px 8px rgba(213, 129, 161, 0.5);
+    justify-items: center;
+}
+
+.big-number {
+    font-family: var(--title-font);
+    font-size: 60px;
+    color: var(--darkest-pink);
+    text-shadow: 1px 1px 1px var(--dark-pink);
+}
+
+.rate-and-pie {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+}
+
+.match-circle-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    /* background: conic-gradient(var(--dark-pink) calc(63*3.6deg), transparent 0deg); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

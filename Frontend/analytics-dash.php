@@ -15,11 +15,14 @@
 <body>
     <main>
         <h1 id="website-title">friendship<br>matchmaking</h1>
-        <div id="admin-page">
+        <div id="analytics-page">
             <h1>Analytics Dashboard</h1>
             <div class="analytics-container">
                 <h2>User Statistics</h2>
                 <div class="analytics-cards" id="user-stats"></div>
+            </div>
+            <div class="analytics-container">
+                <h2>Quiz Statistics</h2>
                 <div class="analytics-cards" id="quiz-stats"></div>
             </div>
         </div>

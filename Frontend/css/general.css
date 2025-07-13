@@ -49,9 +49,10 @@ h2 {
 }
 
 h3 {
-    font-size: 23px;
+    font-family: var(--title-font);
+    font-size: 21px;
+    color: var(--dark-pink);
     font-weight: bold;
-    color: var(--signature-purple);
 }
 
 h4 {
