@@ -59,6 +59,13 @@ CREATE TABLE IF NOT EXISTS Matches (
     PRIMARY KEY (user1_id, user2_id)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS Login_History (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+) ENGINE=InnoDB;
+
 
 -- creating quiz questions
 
