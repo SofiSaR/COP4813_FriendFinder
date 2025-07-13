@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS Quiz_Questions (
     prompt_text VARCHAR(500) NOT NULL UNIQUE,
     category VARCHAR(20) NOT NULL,
     meaning_of_1 VARCHAR(75) NOT NULL,
-    meaning_of_5 VARCHAR(50) NOT NULL
+    meaning_of_5 VARCHAR(60) NOT NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS Quiz_Responses (
