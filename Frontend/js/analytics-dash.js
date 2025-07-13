@@ -31,15 +31,15 @@ function updateUserStats(userStats) {
         analyticsCards.innerHTML = `
             <div class="analytics-card">
                 <h3>Total Users</h3>
-                <p id="total-users">${userStats.total_users}</p>
+                <p id="total-users" class="big-number">${userStats.total_users}</p>
             </div>
             <div class="analytics-card">
                 <h3>Active Users</h3>
-                <p id="active-users">${userStats.active_users}</p>
+                <p id="active-users" class="big-number">${userStats.active_users}</p>
             </div>
             <div class="analytics-card">
                 <h3>Inactive Users</h3>
-                <p id="inactive-users">${userStats.inactive_users}</p>
+                <p id="inactive-users" class="big-number">${userStats.inactive_users}</p>
             </div>
         `;
     }
@@ -73,7 +73,14 @@ function updateQuizStats(quizStats) {
         quizStatsElem.innerHTML = `
             <div class="analytics-card">
                 <h3>Number of Quiz Submissions</h3>
-                <p id="total-users">${quizStats.num_quiz_submissions}</p>
+                <p id="quiz-submissions" class="big-number">${quizStats.num_quiz_submissions}</p>
+            </div>
+            <div class="analytics-card">
+                <h3>Quiz Submission Rate</h3>
+                <div class="rate-and-pie">
+                    <span class="match-circle-circle" style="background: conic-gradient(var(--dark-pink) calc(${Math.round((quizStats.num_quiz_submissions / quizStats.num_users) * 100)}*3.6deg), transparent 0deg);"></span>
+                    <p id="quiz-submission-rate" class="big-number">${Math.round((quizStats.num_quiz_submissions / quizStats.num_users) * 100)}%</p>
+                </div>
             </div>
         `;
     }
