@@ -17,6 +17,8 @@
     <title>Friendship Matchmaking - Matches</title>
     <!-- for CSS stylesheet -->
     <link rel="stylesheet" href="css/matches.css">
+    <!-- for the JS script -->
+    <script type="module" src="js/matches.js"></script>
 </head>
 <body>
     <header>
@@ -30,77 +32,11 @@
     <main>    
         <!-- for the matches page -->
         <div id="matches-page">
-            <!-- for the main container -->
-            <div id="main-container">
-                <!-- for the first profile - hannah -->
-                <div class="profile">
-                    <!-- for the profile pic -->
-                    <div class="profile-pic">
-                        <img src="../Backend/images/icons/hannah-pic.webp" alt="Hannah's profile picture">
-                    </div>
-                    <!-- for the name tag -->
-                    <div class="name-tag">
-                        <img src="../Backend/images/icons/name-tag-icon.webp" alt="Name tag icon">
-                        <span>Hannah</span>
-                    </div>
-                    <!-- for the profile link button -->
-                    <button class="profile-link">
-                        <img src="../Backend/images/icons/link.webp" alt="Profile link icon">
-                        <span>View Profile</span>
-                    </button>
-                </div>
-                <!-- for the second profile - jeremiah -->
-                <div class="profile">
-                    <!-- for the profile pic -->
-                    <div class="profile-pic">
-                        <img src="../Backend/images/icons/jeremiah-pic.webp" alt="Jeremiah's profile picture">
-                    </div>
-                    <!-- for the name tag -->
-                    <div class="name-tag">
-                        <img src="../Backend/images/icons/name-tag-icon.webp" alt="Name tag icon">
-                        <span>Jeremiah</span>
-                    </div>
-                    <!-- for the profile link button -->
-                    <button class="profile-link">
-                        <img src="../Backend/images/icons/link.webp" alt="Profile link icon">
-                        <span>View Profile</span>
-                    </button>
-                </div>
-                <!-- for the third profile - nicolas -->
-                <div class="profile">
-                    <!-- for the profile pic -->
-                    <div class="profile-pic">
-                        <img src="../Backend/images/icons/nicolas-pic.webp" alt="Nicolas' profile picture">
-                    </div>
-                    <!-- for the name tag -->
-                    <div class="name-tag">
-                        <img src="../Backend/images/icons/name-tag-icon.webp" alt="Name tag icon">
-                        <span>Nicolas</span>
-                    </div>
-                    <!-- for the profile link button -->
-                    <button class="profile-link">
-                        <img src="../Backend/images/icons/link.webp" alt="Profile link icon">
-                        <span>View Profile</span>
-                    </button>
-                </div>
-                <!-- for the fourth profile - huda -->
-                <div class="profile">
-                    <!-- for the profile pic -->
-                    <div class="profile-pic">
-                        <img src="../Backend/images/icons/huda-pic.webp" alt="Huda's profile picture">
-                    </div>
-                    <!-- for the name tag -->
-                    <div class="name-tag">
-                        <img src="../Backend/images/icons/name-tag-icon.webp" alt="Name tag icon">
-                        <span>Huda</span>
-                    </div>
-                    <!-- for the profile link button -->
-                    <button class="profile-link">
-                        <img src="../Backend/images/icons/link.webp" alt="Profile link icon">
-                        <span>View Profile</span>
-                    </button>
-                </div>
-            </div>
+            <!-- for the main container, which is loaded 
+            dynamically and contains the profile pic,
+            name tag, and profile page links for the 
+            user's top 20 matches -->
+            <div id="main-container"></div>
         </div>
     </main>
 </body>
