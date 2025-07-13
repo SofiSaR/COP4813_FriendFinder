@@ -1,7 +1,24 @@
 <?php
+    // start the session
     session_start();
+
+    // user must be logged in
     if (!isset($_SESSION['user_id']))
         header('Location: login.html');
+
+    // get user ID from the URL parameter
+    // if none, default to the logged-in user's profile
+    $profile_user_id = isset($_GET['user_id']) ? $_GET['user_id'] : $_SESSION['user_id'];
+    
+    // ensure only valid ints
+    // are passed as user ids
+    $profile_user_id = filter_var($profile_user_id, FILTER_VALIDATE_INT);
+    
+    // ff the user ID is invalid, 
+    // redirect to own profile
+    if (!$profile_user_id) {
+        $profile_user_id = $_SESSION['user_id'];
+    }
 ?>
 <!-- for document structure, meta tags, and title -->
 <!-- HTML5 document type -->
@@ -18,7 +35,13 @@
     <!-- for CSS stylesheet -->
     <link rel="stylesheet" href="css/profile.css">
     <!-- for the JS script -->
-    <script src="js/profile.js"></script>
+    <script type="module" src="js/profile.js"></script>
+    <script>
+        // make the profile user ID
+        // available to JS
+        window.profileUserId = <?php echo json_encode($profile_user_id); ?>;
+        window.currentUserId = <?php echo json_encode($_SESSION['user_id']); ?>;
+    </script>
 </head>
 <body>
     <main>
