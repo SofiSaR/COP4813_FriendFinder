@@ -470,7 +470,7 @@ function drawInteractionsPieChart(data) {
     const options = {
         // for pie chart title and colors
         title: 'User Interactions Breakdown',
-        colors: ['#800080', '#0000FF', '#ffc0cb'],
+        colors: ['#9E79B6', '#DE8AAA', '#F9D1DF'],
     };
 
     // draw pie chart using google charts
@@ -516,7 +516,8 @@ function drawPageVisitsBarChart() {
 
             // for bar graph title
             const options = {
-                title: 'Page Visits'
+                title: 'Page Visits',
+                colors: ['#DE8AAA']
             };
 
             // draw bar graph using google charts
