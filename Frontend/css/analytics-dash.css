@@ -42,6 +42,12 @@
     text-shadow: 1px 1px 1px var(--dark-pink);
 }
 
+.smaller-text {
+    margin-top: 10px;
+    font-size: 15px;
+    color: var(--darkest-pink);
+}
+
 .rate-and-pie {
     margin-top: 20px;
     display: flex;
@@ -58,4 +64,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+input, select {
+    color: var(--dark-pink);
+    border: 1px solid var(--dark-pink);
+    border-radius: 3px;
+    padding: 3px;
+    outline: none;
 }

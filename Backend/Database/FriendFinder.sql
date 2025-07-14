@@ -6,6 +6,7 @@ USE FriendFinder;
 
 CREATE TABLE IF NOT EXISTS Users (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    registration_date DATE NOT NULL,
     pfpUrl VARCHAR(255) DEFAULT '/COP4813_FriendFinder/Backend/images/icons/pink-profile-icon.webp',
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
@@ -101,8 +102,9 @@ VALUES
 -- creating users
 -- all users have password 1234
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-01',
     'Larry',
     'Oppenheimer',
     '+1 (111) 111-1111',
@@ -111,8 +113,9 @@ VALUES (
     'I really like golf and want to meet some new friends.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-01',
     'Barry',
     'Kraimer',
     '+2 (222) 222-2222',
@@ -121,8 +124,9 @@ VALUES (
     'I really like singing and want to meet some new friends.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-03',
     'Alice',
     'Johnson',
     '+3 (333) 333-3333',
@@ -131,8 +135,9 @@ VALUES (
     'Avid reader and coffee enthusiast.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-04',
     'Bob',
     'Smith',
     '+4 (444) 444-4444',
@@ -141,8 +146,9 @@ VALUES (
     'Enjoys hiking and outdoor adventures.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2024-07-05',
     'Cathy',
     'Lee',
     '+5 (555) 555-5555',
@@ -151,8 +157,9 @@ VALUES (
     'Music lover and aspiring chef.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-06',
     'David',
     'Nguyen',
     '+6 (666) 666-6666',
@@ -161,8 +168,9 @@ VALUES (
     'Tech geek and gamer.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-07',
     'Ella',
     'Martinez',
     '+7 (777) 777-7777',
@@ -171,8 +179,9 @@ VALUES (
     'Yoga fan and healthy living advocate.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-08',
     'Frank',
     'Wright',
     '+8 (888) 888-8888',
@@ -181,8 +190,9 @@ VALUES (
     'Movie buff and trivia master.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-10',
     'Grace',
     'Kim',
     '+9 (999) 999-9999',
@@ -191,8 +201,9 @@ VALUES (
     'Dog lover and marathon runner.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-12',
     'Henry',
     'Patel',
     '+10 (101) 010-1010',
@@ -201,8 +212,9 @@ VALUES (
     'Board game enthusiast.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-12',
     'Ivy',
     'Chen',
     '+11 (202) 020-2020',
@@ -211,8 +223,9 @@ VALUES (
     'Art student and museum goer.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-13',
     'Jack',
     'Brown',
     '+12 (303) 030-3030',
@@ -221,8 +234,9 @@ VALUES (
     'Soccer player and pizza fan.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-13',
     'Kara',
     'Singh',
     '+13 (404) 040-4040',
@@ -231,8 +245,9 @@ VALUES (
     'Travel blogger and photographer.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-15',
     'Leo',
     'Garcia',
     '+14 (505) 050-5050',
@@ -241,8 +256,9 @@ VALUES (
     'Cyclist and foodie.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-15',
     'Mona',
     'Ali',
     '+15 (606) 060-6060',
@@ -251,8 +267,9 @@ VALUES (
     'Poet and tea drinker.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-17',
     'Nate',
     'Evans',
     '+16 (707) 070-7070',
@@ -261,8 +278,9 @@ VALUES (
     'Basketball fan and sneakerhead.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-17',
     'Olivia',
     'White',
     '+17 (808) 080-8080',
@@ -271,8 +289,9 @@ VALUES (
     'Gardener and animal lover.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-19',
     'Paul',
     'Young',
     '+18 (909) 090-9090',
@@ -281,8 +300,9 @@ VALUES (
     'Runner and podcast addict.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-19',
     'Quinn',
     'Davis',
     '+19 (111) 111-2222',
@@ -291,8 +311,9 @@ VALUES (
     'Chess player and coder.'
 );
 
-INSERT INTO Users (first_name, last_name, phone_number, email, pwd, bio)
+INSERT INTO Users (registration_date, first_name, last_name, phone_number, email, pwd, bio)
 VALUES (
+    '2025-07-20',
     'Rita',
     'Lopez',
     '+20 (222) 222-3333',
