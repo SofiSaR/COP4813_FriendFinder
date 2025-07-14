@@ -686,7 +686,6 @@ VALUES
 -- creating counters for page visits
 
 INSERT INTO Page_Visits (page_name, visit_count) VALUES
-('signup.php', 0),
 ('login.php', 0),
 ('profile.php', 0),
 ('matches.php', 0),
@@ -696,4 +695,4 @@ INSERT INTO Page_Visits (page_name, visit_count) VALUES
 ('admin-login.php', 0),
 ('admin.php', 0),
 ('add-user.php', 0),
-('analytics-dash.php', 0);    
+('analytics-dash.php', 0);

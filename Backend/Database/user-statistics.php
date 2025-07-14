@@ -7,7 +7,7 @@
 
     // user must be logged in as admin
     if (!isset($_SESSION['user_id']) || $_SESSION['admin'] !== true)
-        header('Location: admin-login.html');
+        header('Location: /COP4813_FriendFinder/Frontend/admin-login.php');
 
     // database connection parameters
     $servername = "localhost";

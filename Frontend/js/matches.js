@@ -68,7 +68,7 @@ async function loadMatches(userId) {
             mainContainer.innerHTML = '<div class="error">Unable to load matches. Please log in to view your matches.</div>';
 
             // redirect to login page
-            window.location.href = '/COP4813_FriendFinder/Frontend/login.html';
+            window.location.href = '/COP4813_FriendFinder/Frontend/login.php';
 
             return;
         }

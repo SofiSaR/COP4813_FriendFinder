@@ -35,7 +35,7 @@
 
     // user must be logged in
     if (!isset($_SESSION['user_id']))
-        header('Location: login.html');
+        header('Location: /COP4813_FriendFinder/Frontend/login.php');
 ?>
 <!-- for document structure, meta tags, and title -->
 <!-- HTML5 document type -->

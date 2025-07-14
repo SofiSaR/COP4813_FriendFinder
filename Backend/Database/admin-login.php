@@ -1,35 +1,4 @@
 <?php
-    // initialize page name
-    $page_name = basename(__FILE__);
-
-    // database connection parameters
-    $conn = new mysqli("localhost", "root", "", "FriendFinder");
-
-    // handle connection 
-    // error
-    if ($conn->connect_error) {
-        echo "<script>console.log('Error connecting to database');</script>";
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // update the page visit count
-    // for the current page
-    $stmt = $conn->prepare("UPDATE Page_Visits SET visit_count = visit_count + 1 WHERE page_name = ?");
-
-    // bind the page name to 
-    // the prepared statement
-    $stmt->bind_param("s", $page_name);
-
-    // execute the query
-    $stmt->execute();
-
-    // close prepared 
-    // statement
-    $stmt->close();
-
-    // close connection
-    $conn->close();
-
     // start the session
     session_start();
 
