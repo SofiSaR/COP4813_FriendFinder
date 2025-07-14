@@ -1,24 +1,76 @@
 <?php
+    // initialize page name
+    $page_name = basename(__FILE__);
+
+    // database connection parameters
+    $conn = new mysqli("localhost", "root", "", "FriendFinder");
+
+    // handle connection 
+    // error
+    if ($conn->connect_error) {
+        echo "<script>console.log('Error connecting to database');</script>";
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // update the page visit count
+    // for the current page
+    $stmt = $conn->prepare("UPDATE Page_Visits SET visit_count = visit_count + 1 WHERE page_name = ?");
+
+    // bind the page name to 
+    // the prepared statement
+    $stmt->bind_param("s", $page_name);
+
+    // execute the query
+    $stmt->execute();
+
+    // close prepared 
+    // statement
+    $stmt->close();
+
+    // close connection
+    $conn->close();
+
+    // start the session
     session_start();
+
+    // user must be logged in
     if (!isset($_SESSION['user_id']))
-        header('Location: login.html');
+        header('Location: /COP4813_FriendFinder/Frontend/login.php');
+
+    // get user ID from the URL parameter
+    // if none, default to the logged-in user's profile
+    $profile_user_id = isset($_GET['user_id']) ? $_GET['user_id'] : $_SESSION['user_id'];
+    
+    // ensure only valid ints
+    // are passed as user ids
+    $profile_user_id = filter_var($profile_user_id, FILTER_VALIDATE_INT);
+    
+    // ff the user ID is invalid, 
+    // redirect to own profile
+    if (!$profile_user_id) {
+        $profile_user_id = $_SESSION['user_id'];
+    }
 ?>
-<!-- for document structure, meta tags, and title -->
-<!-- HTML5 document type -->
 <!DOCTYPE html>
 <!-- doc language is english -->
 <html lang="en">
 <head>
-    <!-- character encoding -->
+    <!-- for character encoding -->
     <meta charset="UTF-8">
-    <!-- scaling and responsiveness -->
+    <!-- for scaling and responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- page title -->
+    <!-- for page title -->
     <title>Friendship Matchmaking - Profile</title>
     <!-- for CSS stylesheet -->
     <link rel="stylesheet" href="css/profile.css">
     <!-- for the JS script -->
-    <script src="js/profile.js"></script>
+    <script type="module" src="js/profile.js"></script>
+    <script>
+        // make the profile user ID
+        // available to JS
+        window.profileUserId = <?php echo json_encode($profile_user_id); ?>;
+        window.currentUserId = <?php echo json_encode($_SESSION['user_id']); ?>;
+    </script>
 </head>
 <body>
     <main>

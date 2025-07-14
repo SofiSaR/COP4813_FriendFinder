@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Quiz_Questions (
     prompt_text VARCHAR(500) NOT NULL UNIQUE,
     category VARCHAR(20) NOT NULL,
     meaning_of_1 VARCHAR(75) NOT NULL,
-    meaning_of_5 VARCHAR(50) NOT NULL
+    meaning_of_5 VARCHAR(60) NOT NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS Quiz_Responses (
@@ -58,6 +58,19 @@ CREATE TABLE IF NOT EXISTS Matches (
     FOREIGN KEY (user1_id) REFERENCES Users(id) ON DELETE CASCADE,
     FOREIGN KEY (user2_id) REFERENCES Users(id) ON DELETE CASCADE,
     PRIMARY KEY (user1_id, user2_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS Login_History (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS Page_Visits (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    page_name VARCHAR(50) NOT NULL,
+    visit_count INT DEFAULT 0
 ) ENGINE=InnoDB;
 
 
@@ -649,7 +662,6 @@ INSERT INTO Quiz_Scores (user_id, sociability_score, adventurousness_score, reli
 VALUES
     (10, 50, 50, 50, 50, 50);
 
-
 -- creating matches
 
 INSERT INTO Matches (user1_id, user2_id)
@@ -691,3 +703,17 @@ VALUES
     (17, 20),
     (18, 19),
     (19, 20);
+
+-- creating counters for page visits
+
+INSERT INTO Page_Visits (page_name, visit_count) VALUES
+('login.php', 0),
+('profile.php', 0),
+('matches.php', 0),
+('quiz.php', 0),
+('quiz-results.php', 0),
+('edit-user.php', 0),
+('admin-login.php', 0),
+('admin.php', 0),
+('add-user.php', 0),
+('analytics-dash.php', 0);

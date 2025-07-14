@@ -1,6 +1,19 @@
+// initialize charts when 
+// Google Charts library is loaded
+function initializeCharts() {
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(() => {
+        loadInteractionsAnalytics();
+        drawPageVisitsBarChart();
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // call functions when
+    // the page loads
     getUserStats();
     getQuizStats();
+    initializeCharts();
 
     // get the package for a column char from Google Chars
     google.charts.load('current', {packages: ['corechart']});
@@ -222,20 +235,28 @@ async function getChartData(unit, start, end) {
     }
 }
 
+// function to get user
+// statistics
 async function getUserStats() {
+    // fetch user statistics
     const response = await fetch('/COP4813_FriendFinder/Backend/Database/user-statistics.php', {
         method: 'GET',
         credentials: 'same-origin'
     });
 
+    // if response is not ok
     if (!response.ok) {
+        // display error message
         throw new Error(`HTTP error. Status: ${response.status}`);
     }
 
     // wait for json response
     const userStats = await response.json();
 
+    // if success is true
     if (userStats.success) {
+            // call function to
+            // update user stats
             updateUserStats(userStats.data);
     } else {
         // display error message
@@ -243,10 +264,16 @@ async function getUserStats() {
     }    
 }
 
+// function to update 
+// user stats
 function updateUserStats(userStats) {
+    // access user-stats section
     const analyticsCards = document.getElementById('user-stats');
     const userRegistrations = document.getElementById('user-registrations');
 
+    // update number of total users,
+    // number of active users, and
+    // number of inactive users
     if (analyticsCards) {
         analyticsCards.innerHTML = `
             <div class="analytics-card">
@@ -301,20 +328,28 @@ function updateUserStats(userStats) {
     }
 }
 
+// function to get quiz
+// statistics
 async function getQuizStats() {
+    // fetch quiz statistics
     const response = await fetch('/COP4813_FriendFinder/Backend/Database/quiz-stats.php', {
         method: 'GET',
         credentials: 'same-origin'
     });
 
+    // if response is not ok
     if (!response.ok) {
+        // display error message
         throw new Error(`HTTP error. Status: ${response.status}`);
     }
 
     // wait for json response
     const quizStats = await response.json();
 
+    // if success is true
     if (quizStats.success) {
+            // call function to
+            // update quiz stats
             updateQuizStats(quizStats.data);
     } else {
         // display error message
@@ -322,9 +357,14 @@ async function getQuizStats() {
     }    
 }
 
+// function to update 
+// quiz stats
 function updateQuizStats(quizStats) {
+    // access quiz-stats section
     const quizStatsElem = document.getElementById('quiz-stats');
 
+    // update number of quiz submissions
+    // and quiz submission rate
     if (quizStatsElem) {
         quizStatsElem.innerHTML = `
             <div class="analytics-card">
@@ -340,4 +380,147 @@ function updateQuizStats(quizStats) {
             </div>
         `;
     }
+}
+
+// function to load interactions 
+// analytics (charts)
+async function loadInteractionsAnalytics() {
+    try {
+        // fetch interactions analytics data
+        const response = await fetch('/COP4813_FriendFinder/Backend/Database/get-interactions-analytics.php', {
+            method: 'GET',
+            credentials: 'same-origin'
+        });
+        
+        // if response is not ok
+        if (!response.ok) {
+            // display error message
+            throw new Error(`HTTP error. Status: ${response.status}`);
+        }
+        
+        // get the response text
+        const responseText = await response.text();
+        
+        // try to parse as JSON
+        const result = JSON.parse(responseText);
+        
+        // if success is true
+        if (result.success) {
+            // initialize data
+            const data = result.data;
+            
+            // call function to update 
+            // interactions stats cards
+            updateInteractionsStatsCards(data);
+            
+            // call function to draw 
+            // pie chart
+            drawInteractionsPieChart(data);
+
+            // call function to draw
+            // bar graph
+            drawPageVisitsBarChart();
+        } else {
+            // display error messages
+            console.error('Failed to load interactions analytics:', result.message);
+            showError('interactions-stats', 'Failed to load interactions data');
+        }
+    } catch (error) {
+        // display error messages
+        console.error('Error fetching interactions analytics:', error);
+        console.error('Error details:', error.message);
+        showError('interactions-stats', 'Error loading interactions data');
+    }
+}
+
+// function to update interactions
+// stats cards
+function updateInteractionsStatsCards(data) {
+    // access interactions-stats section
+    const container = document.getElementById('interactions-stats');
+    
+    // update number of logins,
+    // quiz submissions, and bio paragraphs
+    container.innerHTML = `
+        <div class="analytics-card">
+            <h3>Total Logins</h3>
+            <p class="big-number">${formatNumber(data.num_logins)}</p>
+        </div>
+        <div class="analytics-card">
+            <h3>Quiz Submissions</h3>
+            <p class="big-number">${formatNumber(data.num_quiz_submissions)}</p>
+        </div>
+        <div class="analytics-card">
+            <h3>Bio Paragraphs</h3>
+            <p class="big-number">${formatNumber(data.num_bio_paragraphs)}</p>
+        </div>
+    `;
+}
+
+// function to draw interactions pie chart
+function drawInteractionsPieChart(data) {
+    // create data table
+    const chartData = google.visualization.arrayToDataTable([
+        ['Activity Type', 'Count'],
+        ['Logins', parseInt(data.num_logins)],
+        ['Quiz Submissions', parseInt(data.num_quiz_submissions)],
+        ['Bio Submissions', parseInt(data.num_bio_paragraphs)]
+    ]);
+
+    const options = {
+        // for pie chart title and colors
+        title: 'User Interactions Breakdown',
+        colors: ['#800080', '#0000FF', '#ffc0cb'],
+    };
+
+    // draw pie chart using google charts
+    const chart = new google.visualization.PieChart(document.getElementById('interactionsPieChart'));
+    chart.draw(chartData, options);
+}
+
+// function to format numbers
+function formatNumber(num) {
+    return parseInt(num).toLocaleString();
+}
+
+// function to display error messages
+function showError(containerId, message) {
+    // access containerId
+    const container = document.getElementById(containerId);
+
+    // print error message
+    container.innerHTML = `
+        <div class="error-message">
+            <p>${message}</p>
+        </div>
+    `;
+}
+
+// function to draw page visits bar chart
+function drawPageVisitsBarChart() {
+    // fetch page visits data
+    fetch('/COP4813_FriendFinder/Backend/Database/get-page-visits.php')
+        .then(response => response.json())
+        .then(json => {
+            // if success is false
+            if (!json.success) return;
+
+            // create data array
+            const dataArr = [['Page', 'Visits']];
+            json.data.forEach(row => {
+                dataArr.push([row.page_name, parseInt(row.visit_count)]);
+            });
+
+            // create data table
+            const data = google.visualization.arrayToDataTable(dataArr);
+
+            // for bar graph title
+            const options = {
+                title: 'Page Visits'
+            };
+
+            // draw bar graph using google charts
+            const chart = new google.visualization.BarChart(document.getElementById('page_visits_bar_chart'));
+            chart.draw(data, options);
+        });
 }

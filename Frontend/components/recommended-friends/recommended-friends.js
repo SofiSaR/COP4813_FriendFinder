@@ -1,9 +1,19 @@
+// import backend functions
 import { checkId, fetchMatches } from '/COP4813_FriendFinder/Backend/BusinessLogic/backend-functions.js';
 
+// create a class for 
+// recommended friends
 class RecommendedFriends extends HTMLElement {
+    // constructor
     constructor() {
+        // call parent constructor
         super();
+
+        // attach shadow
         this.attachShadow({ mode: 'open' });
+
+        // update recommended friends' cards
+        // with their names and profile links
         this.shadowRoot.innerHTML += `
         <!DOCTYPE html>
         <html lang="en">
@@ -24,8 +34,11 @@ class RecommendedFriends extends HTMLElement {
     }
 
     connectedCallback() {
+        // get recommednations-list
         const recommendationsList = this.shadowRoot.getElementById('recommendations-list');
 
+        // fetch three matches and
+        // display them
         checkId().then(userIdData => { 
             fetchMatches(userIdData.user_id, 3).then(matches => {
                 recommendationsList.innerHTML = matches.map(match => `
@@ -44,4 +57,6 @@ class RecommendedFriends extends HTMLElement {
         });
     }
 }
+
+// register custom element
 customElements.define('recommended-friends', RecommendedFriends);
