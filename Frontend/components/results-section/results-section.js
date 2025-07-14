@@ -1,9 +1,20 @@
+// import backend functions
 import { checkId, fetchScores } from '/COP4813_FriendFinder/Backend/BusinessLogic/backend-functions.js';
 
+// create a class for 
+// results section
 class ResultsSection extends HTMLElement {
+    // constructor
     constructor() {
+        // call parent constructor
         super();
+
+        // attach shadow
         this.attachShadow({ mode: 'open' });
+
+        // update category scores
+        // and bar chart with the 
+        // category scores
         this.shadowRoot.innerHTML += `
         <!DOCTYPE html>
         <html lang="en">
@@ -58,27 +69,32 @@ class ResultsSection extends HTMLElement {
         `;
     }
 
+    // fetch user's scores
     connectedCallback() {
         checkId().then(userIdData => { 
             fetchScores(userIdData.user_id).then(scoreData => { this.showScores(scoreData[0]); });
         });
     }
 
+    // display user's scores
     showScores(scores) {
         console.log("Scores:", scores);
+
+        // set the scores
         const scoreSet = [ scores.sociability_score, scores.adventurousness_score, scores.reliability_score, scores.athleticism_score, scores.availability_score ];
 
+        // create bar graph with 
+        // proper category scores
         const barsContainer = this.shadowRoot.querySelector('.bars');
         const scoreValues = this.shadowRoot.querySelectorAll('.score-value');
-
         scoreValues.forEach((value, index) => {
             value.textContent = `${scoreSet[index]}%`;
         });
 
-        // Clear any existing bars
+        // clear any existing bars
         barsContainer.innerHTML = '';
 
-        // Create and append five bar divs
+        // create and append five bar divs
         for (let i = 0; i < 5; i++) {
             const bar = document.createElement('div');
             bar.className = 'bar';
@@ -87,4 +103,6 @@ class ResultsSection extends HTMLElement {
         }
     }
 }
+
+// register custom element
 customElements.define('results-section', ResultsSection);

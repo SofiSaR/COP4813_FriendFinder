@@ -1,10 +1,15 @@
+// initialize scores 
+// array 
 let scores = {};
 
+// function to check user id
 export async function checkId() {
     const response = await fetch('/COP4813_FriendFinder/Backend/Database/get-user-id.php', { credientials: 'same-origin' });
     return response.json();
 }
 
+// function to fetch the
+// quis questions from the database
 export async function fetchQuestions() {
     const questionsQuery = "SELECT * FROM Quiz_Questions;";
     const questions = await fetch(`/COP4813_FriendFinder/Backend/Database/query.php`, {
@@ -15,6 +20,8 @@ export async function fetchQuestions() {
     return questions.json();
 }
 
+// function to submit the
+// quiz responses to the database
 export function submitQuizResponses(answers, userId) {
     let quizResponsesSql = `SELECT * FROM Quiz_Responses WHERE user_id = ${userId};`;
     fetch(`/COP4813_FriendFinder/Backend/Database/query.php`, {
@@ -25,7 +32,8 @@ export function submitQuizResponses(answers, userId) {
     .then(response => response.json())
     .then(data => {
         if (data.length > 0) {
-            // update quiz responses for this user with new quiz respones
+            // update quiz responses for this 
+            // user with new quiz respones
             let updates = Object.entries(answers).map(([question_id, answer]) =>
                 `UPDATE Quiz_Responses SET response = ${answer} WHERE user_id = ${userId} AND question_id = ${question_id}`
             ).join('; ');
@@ -35,10 +43,12 @@ export function submitQuizResponses(answers, userId) {
                 body: JSON.stringify({ sql: updates})
             });
 
-            // update sociability score for this user with new sociability score
+            // update sociability score for this 
+            // user with new sociability score
             updateOrInsertQuizScores('update', 'Sociability', userId);
         }
         else {
+            // insert quiz responses for this user
             let inserts = `INSERT INTO Quiz_Responses (user_id, question_id, response) VALUES ${Object.entries(answers).map(([question_id, answer]) => `(${userId}, ${question_id}, ${answer})`).join(', ')};`;
             console.log(inserts);
             fetch(`/COP4813_FriendFinder/Backend/Database/query.php`, {
@@ -47,13 +57,15 @@ export function submitQuizResponses(answers, userId) {
                 body: JSON.stringify({ sql: inserts})
             });
 
+            // insert sociability score for this user
             updateOrInsertQuizScores('insert', 'Sociability', userId);
         }
     });
 }
 
+// function to update or insert
+// quiz scores in the database
 export function updateOrInsertQuizScores(mode, category, userId) {
-
     let categoryQuery = `SELECT * FROM Quiz_Responses JOIN Quiz_Questions ON Quiz_Responses.question_id = Quiz_Questions.id WHERE Quiz_Responses.user_id = ${userId} AND Quiz_Questions.category = '${category}';`;
     fetch(`/COP4813_FriendFinder/Backend/Database/query.php`, {
         method: 'POST',
@@ -68,6 +80,7 @@ export function updateOrInsertQuizScores(mode, category, userId) {
         scores[category] = categoryScore;
         console.log(scores);
 
+        // if updating category score
         if (mode == 'update') {
             let updateCategoryScore = `UPDATE Quiz_Scores SET ${category.toLowerCase()}_score = ${categoryScore} WHERE user_id = ${userId}`;
             console.log("updateCategoryScore: ", updateCategoryScore);
@@ -77,6 +90,7 @@ export function updateOrInsertQuizScores(mode, category, userId) {
                 body: JSON.stringify({ sql: updateCategoryScore})
             });
         }
+        // if inserting category score
         else if (mode == 'insert' && Object.keys(scores).length == 5) {
             let insertCategoryScores = `INSERT INTO Quiz_Scores (user_id, sociability_score, adventurousness_score, reliability_score, athleticism_score, availability_score) VALUES (${userId}, ${scores['Sociability']}, ${scores['Adventurousness']}, ${scores['Reliability']}, ${scores['Athleticism']}, ${scores['Availability']});`;
             console.log("insertCategoryScores: ", insertCategoryScores);
@@ -102,15 +116,19 @@ export function updateOrInsertQuizScores(mode, category, userId) {
                 console.log("failed to store scores");
                 break;
             case 1:
+                // for category 2
                 updateOrInsertQuizScores(mode, 'Adventurousness', userId);
                 break;
             case 2:
+                // for category 3
                 updateOrInsertQuizScores(mode, 'Reliability', userId);
                 break;
             case 3:
+                // for category 4
                 updateOrInsertQuizScores(mode, 'Athleticism', userId);
                 break;
             case 4:
+                // for category 5
                 updateOrInsertQuizScores(mode, 'Availability', userId);
                 break;
             default:
@@ -119,6 +137,8 @@ export function updateOrInsertQuizScores(mode, category, userId) {
     });
 }
 
+// function to fetch quiz 
+// scores from the database
 export async function fetchScores(userId) {
     const scoresQuery = `SELECT * FROM Quiz_Scores WHERE user_id = ${userId};`;
     console.log("Scores query:", scoresQuery);
@@ -127,10 +147,11 @@ export async function fetchScores(userId) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sql: scoresQuery})
     });
-    // console.log("Scores fetched:", scoresFetched.json());
     return scoresFetched.json();
 }
 
+// function to fetch the currently
+// logged in user's top 20 macthes
 export async function fetchMatches(userId, limit) {
     const matchesQuery =
         `SELECT Users.*,
@@ -155,6 +176,8 @@ export async function fetchMatches(userId, limit) {
     return matches.json();
 }
 
+// function to fetch
+// a user's profile information
 export async function fetchUserProfile(userId) {
     const userQuery = `SELECT * FROM Users WHERE id = ${userId};`;
     const user = await fetch(`/COP4813_FriendFinder/Backend/Database/query.php`, {

@@ -5,8 +5,8 @@
     // set content type to JSON
     header('Content-Type: application/json');
 
-    // user must be logged in
-    if (!isset($_SESSION['user_id']) && $_SESSION['admin'] !== true)
+    // user must be logged in as admin
+    if (!isset($_SESSION['user_id']) || $_SESSION['admin'] !== true)
         header('Location: admin-login.html');
 
     // database connection parameters

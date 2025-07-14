@@ -4,6 +4,7 @@ function initializeCharts() {
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(() => {
         loadInteractionsAnalytics();
+        drawPageVisitsBarChart();
     });
 }
 
@@ -159,6 +160,10 @@ async function loadInteractionsAnalytics() {
             // call function to draw 
             // pie chart
             drawInteractionsPieChart(data);
+
+            // call function to draw
+            // bar graph
+            drawPageVisitsBarChart();
         } else {
             // display error messages
             console.error('Failed to load interactions analytics:', result.message);
@@ -233,4 +238,33 @@ function showError(containerId, message) {
             <p>${message}</p>
         </div>
     `;
+}
+
+// function to draw page visits bar chart
+function drawPageVisitsBarChart() {
+    // fetch page visits data
+    fetch('/COP4813_FriendFinder/Backend/Database/get-page-visits.php')
+        .then(response => response.json())
+        .then(json => {
+            // if success is false
+            if (!json.success) return;
+
+            // create data array
+            const dataArr = [['Page', 'Visits']];
+            json.data.forEach(row => {
+                dataArr.push([row.page_name, parseInt(row.visit_count)]);
+            });
+
+            // create data table
+            const data = google.visualization.arrayToDataTable(dataArr);
+
+            // for bar graph title
+            const options = {
+                title: 'Page Visits'
+            };
+
+            // draw bar graph using google charts
+            const chart = new google.visualization.BarChart(document.getElementById('page_visits_bar_chart'));
+            chart.draw(data, options);
+        });
 }

@@ -66,6 +66,12 @@ CREATE TABLE IF NOT EXISTS Login_History (
     FOREIGN KEY (user_id) REFERENCES Users(id)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS Page_Visits (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    page_name VARCHAR(50) NOT NULL,
+    visit_count INT DEFAULT 0
+) ENGINE=InnoDB;
+
 
 -- creating quiz questions
 
@@ -635,7 +641,6 @@ INSERT INTO Quiz_Scores (user_id, sociability_score, adventurousness_score, reli
 VALUES
     (10, 50, 50, 50, 50, 50);
 
-
 -- creating matches
 
 INSERT INTO Matches (user1_id, user2_id)
@@ -677,3 +682,18 @@ VALUES
     (17, 20),
     (18, 19),
     (19, 20);
+
+-- creating counters for page visits
+
+INSERT INTO Page_Visits (page_name, visit_count) VALUES
+('signup.php', 0),
+('login.php', 0),
+('profile.php', 0),
+('matches.php', 0),
+('quiz.php', 0),
+('quiz-results.php', 0),
+('edit-user.php', 0),
+('admin-login.php', 0),
+('admin.php', 0),
+('add-user.php', 0),
+('analytics-dash.php', 0);    
