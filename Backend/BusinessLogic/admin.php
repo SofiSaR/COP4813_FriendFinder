@@ -1,4 +1,7 @@
 <?php
+    // use query.php to run SQL queries
+    require __DIR__.'/../Database/query.php';
+
     header('Content-Type: application/json');
     $method = $_SERVER['REQUEST_METHOD'];
 
@@ -7,23 +10,9 @@
             // encode the SQL query for getting all users
             $jsonSQL = json_encode(['sql' => "SELECT * FROM Users"]);
 
-            // initialize cURL to send the 
-            // query to the database API
-            $ch = curl_init();
-
-            // set the cURL options
-            curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($jsonSQL)
-            ]);
-
-            // execute the query 
+            // run the query by sending $jsonSQL to the function in query.php
             // and get the result
-            $json_response = curl_exec($ch);
+            $json_response = runSQLQuery($jsonSQL);
             $result = json_decode($json_response, true);
 
             // if the result was unsuccessful, say the users query failed
@@ -32,8 +21,6 @@
                     'success' => false,
                     'message' => 'Users query failed: ' . $result['message']
                 ]);
-                // close the connection
-                curl_close($ch);
                 break;
             }
 
@@ -42,9 +29,6 @@
                 'success' => true,
                 'data' => $result['data']
             ]);
-
-            // close the curl connection
-            curl_close($ch);
 
             break;
         case 'POST':
@@ -71,23 +55,9 @@
                 ]
             ]);
 
-            // initialize cURL to send the 
-            // query to the database API
-            $ch = curl_init();
-
-            // set the cURL options
-            curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($jsonSQL)
-            ]);
-
-            // execute the query 
+            // run the query by sending $jsonSQL to the function in query.php
             // and get the result
-            $json_response = curl_exec($ch);
+            $json_response = runSQLQuery($jsonSQL);
             $result = json_decode($json_response, true);
 
             // if the result was unsuccessful, say the user insert failed
@@ -96,8 +66,6 @@
                     'success' => false,
                     'message' => 'User insert failed: ' . $result['message']
                 ]);
-                // close the connection
-                curl_close($ch);
                 break;
             }
 
@@ -106,9 +74,6 @@
                 'success' => true,
                 'message' => $result['message']
             ]);
-
-            // close the curl connection
-            curl_close($ch);
 
             break;
         case 'PUT':
@@ -147,23 +112,9 @@
                 ]
             ]);
 
-            // initialize cURL to send the 
-            // query to the database API
-            $ch = curl_init();
-
-            // set the cURL options
-            curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($jsonSQL)
-            ]);
-
-            // execute the query 
+            // run the query by sending $jsonSQL to the function in query.php
             // and get the result
-            $json_response = curl_exec($ch);
+            $json_response = runSQLQuery($jsonSQL);
             $result = json_decode($json_response, true);
 
             // if the result was unsuccessful, say the user update failed
@@ -172,8 +123,6 @@
                     'success' => false,
                     'message' => 'User update failed: ' . $result['message']
                 ]);
-                // close the connection
-                curl_close($ch);
                 break;
             }
 
@@ -182,9 +131,6 @@
                 'success' => true,
                 'message' => $result['message']
             ]);
-
-            // close the curl connection
-            curl_close($ch);
 
             break;
         case 'DELETE':
@@ -201,23 +147,9 @@
                 'params' => ['i', $userId]
             ]);
 
-            // initialize cURL to send the 
-            // query to the database API
-            $ch = curl_init();
-
-            // set the cURL options
-            curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($jsonSQL)
-            ]);
-
-            // execute the query 
+            // run the query by sending $jsonSQL to the function in query.php
             // and get the result
-            $json_response = curl_exec($ch);
+            $json_response = runSQLQuery($jsonSQL);
             $result = json_decode($json_response, true);
 
             // if the result was unsuccessful, say the user deletion failed
@@ -226,8 +158,6 @@
                     'success' => false,
                     'message' => 'User deletion failed: ' . $result['message']
                 ]);
-                // close the connection
-                curl_close($ch);
                 break;
             }
 
@@ -237,10 +167,7 @@
                 'message' => $result['message']
             ]);
 
-            // close the curl connection
-            curl_close($ch);
-
-            header('Location: /COP4813_FriendFinder/Frontend/admin.html');
+            header('Location: https://friendshipmatchmaking.infinityfreeapp.com/Frontend/admin.html');
 
             break;
         default:

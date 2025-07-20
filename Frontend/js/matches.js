@@ -1,5 +1,5 @@
 // import backend functions
-import { fetchMatches, getId, fetchUserProfile } from '/COP4813_FriendFinder/Backend/BusinessLogic/backend-functions.js';
+import { fetchMatches, getId, fetchUserProfile } from 'https://friendshipmatchmaking.infinityfreeapp.com/Backend/BusinessLogic/backend-functions.js';
 
 
 // call the function to load
@@ -18,22 +18,22 @@ function createProfileElement(user) {
     
     // use profile picture 
     // or default icon
-    const profilePicUrl = user.pfpUrl || '/COP4813_FriendFinder/Backend/images/icons/pink-profile-icon.webp';
+    const profilePicUrl = user.pfpUrl || 'https://friendshipmatchmaking.infinityfreeapp.com/Backend/images/icons/pink-profile-icon.webp';
     
     // update the pic, name, and link
     profileDiv.innerHTML = `
         <!-- for the profile pic -->
         <div class="profile-pic">
-            <img src="${profilePicUrl}" alt="${user.first_name}'s profile picture">
+            <img src="/Backend/images/icons/${profilePicUrl}" alt="${user.first_name}'s profile picture">
         </div>
         <!-- for the name tag -->
         <div class="name-tag">
-            <img src="../Backend/images/icons/name-tag-icon.webp" alt="Name tag icon">
+            <img src="/Backend/images/icons/name-tag-icon.webp" alt="Name tag icon">
             <span>${user.first_name}</span>
         </div>
         <!-- for the profile link button -->
         <button class="profile-link" onclick="viewProfile(${user.id})">
-            <img src="../Backend/images/icons/link.webp" alt="Profile link icon">
+            <img src="/Backend/images/icons/link.webp" alt="Profile link icon">
             <span>View Profile</span>
         </button>
     `;
@@ -47,7 +47,7 @@ function createProfileElement(user) {
 function viewProfile(userId) {
     // redirect to profile 
     // page using user's id
-    window.location.href = `/COP4813_FriendFinder/Frontend/profile.php?user_id=${userId}`;
+    window.location.href = `https://friendshipmatchmaking.infinityfreeapp.com/Frontend/profile.php?user_id=${userId}`;
 }
 
 // function to load and display

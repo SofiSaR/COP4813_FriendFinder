@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // add row for each user with
     // their personal details to the table
     // also add buttons for edit and delete functionality
-    fetch(`../Backend/Database/admin.php`, {
+    fetch(`/Backend/BusinessLogic/admin.php`, {
         method: 'GET'
     })
     .then(response => response.json())
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const userId = button.getAttribute('user-id');
 
                     // use it to delete the user
-                    fetch(`../Backend/Database/admin.php?userId=${userId}`, {
+                    fetch(`../Backend/BusinessLogic/admin.php?userId=${userId}`, {
                         method: 'DELETE'
                     })
                     .then(response => response.json())
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // redirect to the edit user page,
                     // so admin can make changes there
-                    window.location.href = `edit-user.php?userId=${userId}`;
+                    window.location.href = `/Frontend/edit-user.php?userId=${userId}`;
                 });
             });
         }
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         addUserButton.addEventListener('click', () => {
             // redirect to the add user page,
             // so admin can add user details there
-            window.location.href = 'add-user.php';
+            window.location.href = '/Frontend/add-user.php';
         });
     });
 });

@@ -1,4 +1,7 @@
 <?php
+    // use query.php to run SQL queries
+    require __DIR__.'/../Database/query.php';
+
     // start the session
     session_start();
 
@@ -7,7 +10,7 @@
 
     // user must be logged in as admin
     if (!isset($_SESSION['user_id']) || $_SESSION['admin'] !== true)
-        header('Location: /COP4813_FriendFinder/Frontend/admin-login.php');
+        header('Location: https://friendshipmatchmaking.infinityfreeapp.com/Frontend/admin-login.php');
 
     // prepare and execute query 
     // to fetch user data
@@ -19,23 +22,9 @@
         FROM Users
     "]);
     
-    // initialize cURL to send the 
-    // query to the database API
-    $ch = curl_init();
-
-    // set the cURL options
-    curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($jsonSQL)
-    ]);
-
-    // execute the query 
+    // run the query by sending $jsonSQL to the function in query.php
     // and get the result
-    $json_response = curl_exec($ch);
+    $json_response = runSQLQuery($jsonSQL);
     $result = json_decode($json_response, true);
 
     // if the result was unsuccessful, say the active and inactive users query failed
@@ -44,8 +33,6 @@
             'success' => false,
             'message' => 'Active and inactive users query failed: ' . $result['message']
         ]);
-        // close the connection
-        curl_close($ch);
         exit();
     }
 
@@ -67,7 +54,4 @@
             'message' => 'User activity data not found'
         ]);
     }
-
-    // close the connection
-    curl_close($ch);
 ?>

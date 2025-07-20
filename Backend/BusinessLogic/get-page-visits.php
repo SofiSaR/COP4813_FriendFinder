@@ -1,4 +1,7 @@
 <?php
+    // use query.php to run SQL queries
+    require __DIR__.'/../Database/query.php';
+
     // start the session
     session_start();
 
@@ -17,23 +20,9 @@
     // encode the SQL query for the count of page visits for each page
     $jsonSQL = json_encode(['sql' => "SELECT page_name, visit_count FROM Page_Visits"]);
 
-    // initialize cURL to send the 
-    // query to the database API
-    $ch = curl_init();
-
-    // set the cURL options
-    curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($jsonSQL)
-    ]);
-
-    // execute the query 
+    // run the query by sending $jsonSQL to the function in query.php
     // and get the result
-    $json_response = curl_exec($ch);
+    $json_response = runSQLQuery($jsonSQL);
     $result = json_decode($json_response, true);
 
     // if the result was unsuccessful, say the page visits query failed
@@ -42,8 +31,6 @@
             'success' => false,
             'message' => 'Page visits query failed: ' . $result['message']
         ]);
-        // close the connection
-        curl_close($ch);
         exit();
     }
 
@@ -61,7 +48,4 @@
             'message' => 'No page visit data found'
         ]);
     }
-
-    // close curl connection
-    curl_close($ch);
 ?>

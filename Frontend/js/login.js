@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loginData.append('password', password);
 
             // send loginData to login.php script
-            fetch('../Backend/Database/login.php', {
+            fetch('/Backend/BusinessLogic/login.php', {
                 method: 'POST',
                 body: loginData,
                 credentials: 'same-origin'
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (result.status === 'true') {
                     // redirect to the 
                     // profile page
-                    window.location.href = 'profile.php';
+                    window.location.href = '/Frontend/profile.php';
                     return;
                 }
 
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
             signupData.append('password', password);
 
             // send signupData to signup.php script
-            fetch('../Backend/Database/signup.php', {
+            fetch('/Backend/BusinessLogic/signup.php', {
                 method: 'POST',
                 body: signupData,
                 credentials: 'same-origin'
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // if signup is successful
                 if (result.status === 'true') {
                     // redirect to quiz page
-                    window.location.href = 'quiz.php';
+                    window.location.href = '/Frontend/quiz.php';
                     return;
                 }
 

@@ -1,4 +1,7 @@
 <?php
+    // use query.php to run SQL queries
+    require __DIR__.'/../Database/query.php';
+
     // start the session
     session_start();
 
@@ -12,27 +15,10 @@
         'params' => ['s', $email]
     ]);
 
-    // initialize cURL to send the 
-    // query to the database API
-    $ch = curl_init();
-
-    // set the cURL options
-    curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($jsonSQL)
-    ]);
-
-    // execute the query 
+    // run the query by sending $jsonSQL to the function in query.php
     // and get the result
-    $json_response = curl_exec($ch);
+    $json_response = runSQLQuery($jsonSQL);
     $result = json_decode($json_response, true);
-
-    // close the connection
-    curl_close($ch);
 
     // if the query failed, return the error message and exit the script
     if (!$result['success']) {

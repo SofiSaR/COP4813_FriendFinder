@@ -3,7 +3,7 @@ USE if0_39047183_FriendFinder;
 CREATE TABLE IF NOT EXISTS Users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     registration_date DATE NOT NULL,
-    pfpUrl VARCHAR(255) DEFAULT '/COP4813_FriendFinder/Backend/images/icons/pink-profile-icon.webp',
+    pfpUrl VARCHAR(255) DEFAULT 'pink-profile-icon.webp',
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     phone_number VARCHAR(20) UNIQUE,

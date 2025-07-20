@@ -1,4 +1,6 @@
 <?php
+    // use query.php to run SQL queries
+    require_once __DIR__.'/../Backend/Database/query.php';
     // initialize page name
     $page_name = basename(__FILE__);
 
@@ -9,23 +11,9 @@
         'params' => ['s', $page_name]
     ]);
 
-    // initialize cURL to send the 
-    // query to the database API
-    $ch = curl_init();
-
-    // set the cURL options
-    curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($jsonSQL)
-    ]);
-
     // execute the query 
     // and get the result
-    $json_response = curl_exec($ch);
+    $json_response = runSQLQuery($jsonSQL);
     $result = json_decode($json_response, true);
 
     // if the query failed, return the error message
@@ -36,15 +24,12 @@
         ]);
     }
 
-    // close the connection
-    curl_close($ch);
-
     // start the session
     session_start();
 
     // user must be logged in as admin
     if (!isset($_SESSION['user_id']) || $_SESSION['admin'] !== true)
-        header('Location: /COP4813_FriendFinder/Frontend/admin-login.php');
+        header('Location: https://friendshipmatchmaking.infinityfreeapp.com/Frontend/admin-login.php');
 ?>
 <!DOCTYPE html>
 <!-- doc language is english -->
@@ -58,11 +43,11 @@
     <title>Analytics Dashboard</title>
     <!-- for the CSS stylesheet -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <link rel="stylesheet" href="css/analytics-dash.css">
+    <link rel="stylesheet" href="/Frontend/css/analytics-dash.css">
     <!-- for using google charts pie and bar chart -->
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <!-- for the JS script -->
-    <script src="js/analytics-dash.js"></script>
+    <script src="/Frontend/js/analytics-dash.js"></script>
 </head>
 <body>
     <main>

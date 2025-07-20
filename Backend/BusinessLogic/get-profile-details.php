@@ -1,4 +1,7 @@
 <?php
+    // use query.php to run SQL queries
+    require __DIR__.'/../Database/query.php';
+
     // start the session
     session_start();
 
@@ -7,7 +10,7 @@
 
     // user must be logged in
     if (!isset($_SESSION['user_id']))
-        header('Location: /COP4813_FriendFinder/Frontend/login.php');
+        header('Location: https://friendshipmatchmaking.infinityfreeapp.com/Frontend/login.php');
 
     // get user ID from session
     $user_id = $_SESSION['user_id'];
@@ -18,23 +21,9 @@
         'params' => ['i', $user_id]
     ]);
 
-    // initialize cURL to send the 
-    // query to the database API
-    $ch = curl_init();
-
-    // set the cURL options
-    curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($jsonSQL)
-    ]);
-
-    // execute the query 
+    // run the query by sending $jsonSQL to the function in query.php
     // and get the result
-    $json_response = curl_exec($ch);
+    $json_response = runSQLQuery($jsonSQL);
     $result = json_decode($json_response, true);
 
     // if the result was unsuccessful, say the profile details query failed
@@ -43,8 +32,6 @@
             'success' => false,
             'message' => 'Profile details query failed: ' . $result['message']
         ]);
-        // close the connection
-        curl_close($ch);
         exit();
     }
 
@@ -67,7 +54,4 @@
             'message' => 'User not found or account inactive'
         ]);
     }
-
-    // close the connection
-    curl_close($ch);
 ?>

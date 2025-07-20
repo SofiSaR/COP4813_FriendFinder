@@ -1,5 +1,5 @@
 // import backend functions
-import { getId, fetchScores } from '/COP4813_FriendFinder/Backend/BusinessLogic/backend-functions.js';
+import { getId, fetchScores } from 'https://friendshipmatchmaking.infinityfreeapp.com/Backend/BusinessLogic/backend-functions.js';
 
 // create a class for 
 // results section

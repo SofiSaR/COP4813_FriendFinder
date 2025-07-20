@@ -129,7 +129,7 @@ async function getChartData(unit, start, end) {
             return [['Day', 'Registrations'] , ['Select Dates', 0]];
         }
         // get the registration stats for the unit, the start date, and the end date
-        const response = await fetch(`/COP4813_FriendFinder/Backend/Database/registration-stats.php?unit=${encodeURIComponent(unit)}&start=${encodeURIComponent(start.toISOString())}&end=${encodeURIComponent(end.toISOString())}`, {
+        const response = await fetch(`https://friendshipmatchmaking.infinityfreeapp.com/Backend/BusinessLogic/registration-stats.php?unit=${encodeURIComponent(unit)}&start=${encodeURIComponent(start.toISOString())}&end=${encodeURIComponent(end.toISOString())}`, {
             method: 'GET',
             credentials: 'same-origin'
         });
@@ -173,7 +173,7 @@ async function getChartData(unit, start, end) {
             return [['Week', 'Registrations'] , ['Select Dates', 0]];
         }
         // get the registration stats for the unit, the start date, and the end date
-        const response = await fetch(`/COP4813_FriendFinder/Backend/Database/registration-stats.php?unit=${encodeURIComponent(unit)}&start=${encodeURIComponent(start.toISOString())}&end=${encodeURIComponent(end.toISOString())}`, {
+        const response = await fetch(`https://friendshipmatchmaking.infinityfreeapp.com/Backend/BusinessLogic/registration-stats.php?unit=${encodeURIComponent(unit)}&start=${encodeURIComponent(start.toISOString())}&end=${encodeURIComponent(end.toISOString())}`, {
             method: 'GET',
             credentials: 'same-origin'
         });
@@ -258,7 +258,7 @@ async function getChartData(unit, start, end) {
             return [['Month', 'Registrations'], ['Select Dates', 0]];
         }
         // get the registration stats for the unit, the start date, and the end date
-        const response = await fetch(`/COP4813_FriendFinder/Backend/Database/registration-stats.php?unit=${encodeURIComponent(unit)}&start=${encodeURIComponent(start.toISOString())}&end=${encodeURIComponent(end.toISOString())}`, {
+        const response = await fetch(`https://friendshipmatchmaking.infinityfreeapp.com/Backend/BusinessLogic/registration-stats.php?unit=${encodeURIComponent(unit)}&start=${encodeURIComponent(start.toISOString())}&end=${encodeURIComponent(end.toISOString())}`, {
             method: 'GET',
             credentials: 'same-origin'
         });
@@ -300,7 +300,7 @@ async function getChartData(unit, start, end) {
 // statistics
 async function getUserStats() {
     // fetch user statistics
-    const response = await fetch('/COP4813_FriendFinder/Backend/Database/user-statistics.php', {
+    const response = await fetch('https://friendshipmatchmaking.infinityfreeapp.com/Backend/BusinessLogic/user-statistics.php', {
         method: 'GET',
         credentials: 'same-origin'
     });
@@ -388,7 +388,7 @@ function updateUserStats(userStats) {
 // statistics
 async function getQuizStats() {
     // fetch quiz statistics
-    const response = await fetch('/COP4813_FriendFinder/Backend/Database/quiz-stats.php', {
+    const response = await fetch('https://friendshipmatchmaking.infinityfreeapp.com/Backend/BusinessLogic/quiz-stats.php', {
         method: 'GET',
         credentials: 'same-origin'
     });
@@ -437,7 +437,7 @@ function updateQuizStats(quizStats) {
 // analytics (charts)
 async function loadInteractionsAnalytics() {
     // fetch interactions analytics data
-    const response = await fetch('/COP4813_FriendFinder/Backend/Database/get-interactions-analytics.php', {
+    const response = await fetch('https://friendshipmatchmaking.infinityfreeapp.com/Backend/BusinessLogic/get-interactions-analytics.php', {
         method: 'GET',
         credentials: 'same-origin'
     });
@@ -531,7 +531,7 @@ function showError(containerId, message) {
 // function to draw page visits bar chart
 function drawPageVisitsBarChart() {
     // fetch page visits data
-    fetch('/COP4813_FriendFinder/Backend/Database/get-page-visits.php')
+    fetch('https://friendshipmatchmaking.infinityfreeapp.com/Backend/BusinessLogic/get-page-visits.php')
         .then(response => response.json())
         .then(pageVisits => {
             // if success is false

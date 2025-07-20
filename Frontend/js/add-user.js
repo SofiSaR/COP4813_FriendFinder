@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // send formData to admin.php script
-        fetch(`../Backend/Database/admin.php`, {
+        fetch(`/Backend/BusinessLogic/admin.php`, {
             method: 'POST',
             body: formData
         })
@@ -45,6 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // redirect to admin.php, so we can see
         // the table with the new user
-        window.location.href = 'admin.php';
+        window.location.href = '/Frontend/admin.php';
     });
 });

@@ -1,4 +1,7 @@
 <?php
+    // use query.php to run SQL queries
+    require __DIR__.'/../Database/query.php';
+
     // start the session
     session_start();
 
@@ -13,23 +16,9 @@
         'params' => ['s', $email]
     ]);
 
-    // initialize cURL to send the 
-    // query to the database API
-    $ch = curl_init();
-
-    // set the cURL options
-    curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($jsonSQL)
-    ]);
-
-    // execute the query 
+    // run the query by sending $jsonSQL to the function in query.php
     // and get the result
-    $json_response = curl_exec($ch);
+    $json_response = runSQLQuery($jsonSQL);
     $result = json_decode($json_response, true);
 
     // if the result was unsuccessful, say the check for matching email query failed
@@ -38,13 +27,8 @@
             'status' => 'failed',
             'message' => 'Check for matching email query failed: ' . $result['message']
         ]);
-        // close the connection
-        curl_close($ch);
         exit();
     }
-
-    // close the connection
-    curl_close($ch);
 
     // if user exists and password is correct
     if (count($result['data']) > 0 && password_verify($password, $result['data'][0]['pwd'])) {
@@ -73,23 +57,10 @@
             'params' => ['i', $user_id]
         ]);
 
-        // initialize new cURL connection 
-        // for history logging
-        $history_ch = curl_init();
-
-        // set the cURL options
-        curl_setopt($history_ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-        curl_setopt($history_ch, CURLOPT_POST, 1);
-        curl_setopt($history_ch, CURLOPT_POSTFIELDS, $history_jsonSQL);
-        curl_setopt($history_ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($history_ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($history_jsonSQL)
-        ]);
-        
-        // execute the history insert query
-        $history_response = curl_exec($history_ch);
-        $history_result = json_decode($history_response, true);
+        // run the query by sending $jsonSQL to the function in query.php
+        // and get the result
+        $history_response = runSQLQuery($jsonSQL);
+        $history_result = json_decode($json_response, true);
 
         // if the result was unsuccessful, say the login history query failed
         if (!$history_result['success']) {
@@ -97,13 +68,8 @@
                 'status' => 'failed',
                 'message' => 'Login history query failed: ' . $history_result['message']
             ]);
-            // close the connection
-            curl_close($history_ch);
             exit();
         }
-
-        // close the curl connection
-        curl_close($history_ch);
 
         // close session writing 
         // and return success

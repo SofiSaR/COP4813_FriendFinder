@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('Form Data:', Object.fromEntries(formData.entries()));
 
         // send formData to admin.php script
-        fetch(`../Backend/Database/admin.php`, {
+        fetch(`/Backend/BusinessLogic/admin.php`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // redirect to admin.php, so we can see
                 // the table with the updated user info
                 console.log('User updated successfully:', result.message);
-                window.location.href = 'admin.php';
+                window.location.href = '/Frontend/admin.php';
             }
             // otherwise, log an error message
             else {

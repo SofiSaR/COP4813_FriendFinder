@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitQuizResponses(answers);
 
         // redirect to quiz results page
-        window.location.href = 'quiz-results.php';
+        window.location.href = '/Frontend/quiz-results.php';
     });
 });
 

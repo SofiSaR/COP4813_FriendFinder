@@ -1,4 +1,6 @@
 <?php
+    // use query.php to run SQL queries
+    require __DIR__.'/../Database/query.php';
     // start the session
     session_start();
 
@@ -31,23 +33,9 @@
         'params' => ['i', $userId]
     ]);
 
-    // initialize cURL to send the 
-    // query to the database API
-    $ch = curl_init();
-
-    // set the cURL options
-    curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($jsonSQL)
-    ]);
-
-    // execute the query 
+    // run the query by sending $jsonSQL to the function in query.php
     // and get the result
-    $json_response = curl_exec($ch);
+    $json_response = runSQLQuery($jsonSQL);
     $result = json_decode($json_response, true);
 
     // if the result was unsuccessful, say the check for previous quiz submission failed
@@ -56,12 +44,8 @@
             'success' => false,
             'message' => 'Check for previous quiz submission failed: ' . $result['message']
         ]);
-        // close the connection
-        curl_close($ch);
         exit();
     }
-
-    curl_close($ch);
 
     // if the user has already submitted the quiz before
     // update the quiz responses for this user with new quiz responses
@@ -73,22 +57,9 @@
                 'params' => ['iii', $answer, $userId, $question_id]
             ]);
 
-            // reset the curl connection
-            $curl1 = curl_init();
-
-            // set the cURL options
-            curl_setopt($curl1, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-            curl_setopt($curl1, CURLOPT_POST, 1);
-            curl_setopt($curl1, CURLOPT_POSTFIELDS, $jsonSQL);
-            curl_setopt($curl1, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl1, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($jsonSQL)
-            ]);
-
-            // execute the query 
+            // run the query by sending $jsonSQL to the function in query.php
             // and get the result
-            $json_response = curl_exec($curl1);
+            $json_response = runSQLQuery($jsonSQL);
             $result = json_decode($json_response, true);
 
             // if the result was unsuccessful, say quiz response updates failed
@@ -97,12 +68,8 @@
                     'success' => false,
                     'message' => 'Quiz response updates failed: ' . $result['message']
                 ]);
-                // close the connection
-                curl_close($curl1);
                 exit();
             }
-
-            curl_close($curl1);
         }
 
         $categories = ['Sociability', 'Adventurousness', 'Reliability', 'Athleticism', 'Availability'];
@@ -116,7 +83,7 @@
             'success' => true,
             'message' => 'Quiz responses and scores updated successfully.'
         ]);
-        
+
         exit();
     }
     else {
@@ -128,22 +95,9 @@
                 'params' => ['iii', $userId, $question_id, $answer]
             ]);
 
-            // reset the curl connection
-            $curl2 = curl_init();
-
-            // set the cURL options
-            curl_setopt($curl2, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-            curl_setopt($curl2, CURLOPT_POST, 1);
-            curl_setopt($curl2, CURLOPT_POSTFIELDS, $jsonSQL);
-            curl_setopt($curl2, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl2, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($jsonSQL)
-            ]);
-
-            // execute the query 
+            // run the query by sending $jsonSQL to the function in query.php
             // and get the result
-            $json_response = curl_exec($curl2);
+            $json_response = runSQLQuery($jsonSQL);
             $result = json_decode($json_response, true);
 
             // if the result was unsuccessful, say quiz response inserts failed
@@ -152,12 +106,8 @@
                     'success' => false,
                     'message' => 'Quiz response inserts failed: ' . $result['message']
                 ]);
-                // close the connection
-                curl_close($curl2);
                 exit();
             }
-
-            curl_close($curl2);
         }
 
         $categories = ['Sociability', 'Adventurousness', 'Reliability', 'Athleticism', 'Availability'];
@@ -189,23 +139,9 @@
             'params' => ['is', $userId, $category]
         ]);
 
-        // initialize cURL to send the 
-        // query to the database API
-        $curl3 = curl_init();
-
-        // set the cURL options
-        curl_setopt($curl3, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-        curl_setopt($curl3, CURLOPT_POST, 1);
-        curl_setopt($curl3, CURLOPT_POSTFIELDS, $jsonSQL);
-        curl_setopt($curl3, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl3, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($jsonSQL)
-        ]);
-
-        // execute the query 
+        // run the query by sending $jsonSQL to the function in query.php
         // and get the result
-        $json_response = curl_exec($curl3);
+        $json_response = runSQLQuery($jsonSQL);
         $result = json_decode($json_response, true);
 
         // if the result was unsuccessful, say the retrieval of quiz responses failed
@@ -214,12 +150,8 @@
                 'success' => false,
                 'message' => 'Retrieval of quiz responses failed: ' . $result['message']
             ]);
-            // close the connection
-            curl_close($curl3);
             exit();
         }
-
-        curl_close($curl3);
 
         // calculate and store the score for this category
         $categoryScore = 0;
@@ -236,23 +168,9 @@
                 'params' => ['sii', strtolower($category) . '_score', $categoryScore, $userId]
             ]);
 
-            // initialize cURL to send the 
-            // query to the database API
-            $curl4 = curl_init();
-
-            // set the cURL options
-            curl_setopt($curl4, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-            curl_setopt($curl4, CURLOPT_POST, 1);
-            curl_setopt($curl4, CURLOPT_POSTFIELDS, $jsonSQL);
-            curl_setopt($curl4, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl4, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($jsonSQL)
-            ]);
-
-            // execute the query 
+            // run the query by sending $jsonSQL to the function in query.php
             // and get the result
-            $json_response = curl_exec($curl4);
+            $json_response = runSQLQuery($jsonSQL);
             $result = json_decode($json_response, true);
 
             // if the result was unsuccessful, say the category score update failed
@@ -261,12 +179,8 @@
                     'success' => false,
                     'message' => 'Category score update failed: ' . $result['message']
                 ]);
-                // close the connection
-                curl_close($curl4);
                 exit();
             }
-
-            curl_close($curl4);
         }
         else if ($mode == 'insert' && count($scores) == 5) {
             // if inserting category score
@@ -276,23 +190,9 @@
                 'params' => ['iiiiii', $userId, $scores['Sociability'], $scores['Adventurousness'], $scores['Reliability'], $scores['Athleticism'], $scores['Availability']]
             ]);
 
-            // initialize cURL to send the 
-            // query to the database API
-            $curl5 = curl_init();
-
-            // set the cURL options
-            curl_setopt($curl5, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-            curl_setopt($curl5, CURLOPT_POST, 1);
-            curl_setopt($curl5, CURLOPT_POSTFIELDS, $jsonSQL);
-            curl_setopt($curl5, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl5, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($jsonSQL)
-            ]);
-
-            // execute the query 
+            // run the query by sending $jsonSQL to the function in query.php
             // and get the result
-            $json_response = curl_exec($curl5);
+            $json_response = runSQLQuery($jsonSQL);
             $result = json_decode($json_response, true);
 
             // if the result was unsuccessful, say the category score insertion failed
@@ -301,12 +201,8 @@
                     'success' => false,
                     'message' => 'Category score insertion failed: ' . $result['message']
                 ]);
-                // close the connection
-                curl_close($curl5);
                 exit();
             }
-
-            curl_close($curl5);
 
             // check for successful insertion
             $jsonSQL = json_encode([
@@ -314,23 +210,9 @@
                 'params' => ['i', $userId]
             ]);
 
-            // initialize cURL to send the 
-            // query to the database API
-            $curl6 = curl_init();
-
-            // set the cURL options
-            curl_setopt($curl6, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-            curl_setopt($curl6, CURLOPT_POST, 1);
-            curl_setopt($curl6, CURLOPT_POSTFIELDS, $jsonSQL);
-            curl_setopt($curl6, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl6, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($jsonSQL)
-            ]);
-
-            // execute the query 
+            // run the query by sending $jsonSQL to the function in query.php
             // and get the result
-            $json_response = curl_exec($curl6);
+            $json_response = runSQLQuery($jsonSQL);
             $result = json_decode($json_response, true);
 
             // if the result was unsuccessful, say the category score insertion check failed
@@ -339,12 +221,8 @@
                     'success' => false,
                     'message' => 'Category score insertion check failed: ' . $result['message']
                 ]);
-                // close the connection
-                curl_close($curl6);
                 exit();
             }
-
-            curl_close($curl6);
         }
     }
 ?>

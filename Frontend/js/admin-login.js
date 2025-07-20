@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loginData.append('password', password);
 
             // send formData to admin-login.php script
-            fetch('../Backend/Database/admin-login.php', {
+            fetch('/Backend/BusinessLogic/admin-login.php', {
                 method: 'POST',
                 body: loginData,
                 credentials: 'same-origin'
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // valid (successful login)
                 if (result.status === 'true') {
                     // redirect to the admin page
-                    window.location.href = 'admin.php';
+                    window.location.href = '/Frontend/admin.php';
                 }
                 else if (result.status === 'false') {
                     // display invalid login msg

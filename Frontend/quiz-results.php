@@ -1,4 +1,6 @@
 <?php
+    // use query.php to run SQL queries
+    require_once __DIR__.'/../Backend/Database/query.php';
     // initialize page name
     $page_name = basename(__FILE__);
 
@@ -9,23 +11,9 @@
         'params' => ['s', $page_name]
     ]);
 
-    // initialize cURL to send the 
-    // query to the database API
-    $ch = curl_init();
-
-    // set the cURL options
-    curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($jsonSQL)
-    ]);
-
     // execute the query 
     // and get the result
-    $json_response = curl_exec($ch);
+    $json_response = runSQLQuery($jsonSQL);
     $result = json_decode($json_response, true);
 
     // if the query failed, return the error message
@@ -36,14 +24,11 @@
         ]);
     }
 
-    // close the connection
-    curl_close($ch);
-
     session_start();
 
     // user must be logged in
     if (!isset($_SESSION['user_id']))
-        header('Location: /COP4813_FriendFinder/Frontend/login.php');
+        header('Location: https://friendshipmatchmaking.infinityfreeapp.com/Frontend/login.php');
 ?>
 <!DOCTYPE html>
 <!-- doc language is english -->
@@ -56,11 +41,11 @@
     <!-- for page title -->
     <title>Friendship Matchmaking</title>
     <!-- for the CSS stylesheet -->
-    <link rel="stylesheet" href="css/quiz-results.css">
+    <link rel="stylesheet" href="/Frontend/css/quiz-results.css">
     <!-- for the JS scripts -->
-    <script type="module" src="js/quiz-results.js"></script>
-    <script type="module" src="components/results-section/results-section.js"></script>
-    <script type="module" src="components/recommended-friends/recommended-friends.js"></script>
+    <script type="module" src="/Frontend/js/quiz-results.js"></script>
+    <script type="module" src="/Frontend/components/results-section/results-section.js"></script>
+    <script type="module" src="/Frontend/components/recommended-friends/recommended-friends.js"></script>
 </head>
 <body>
     <!-- for the website title -->

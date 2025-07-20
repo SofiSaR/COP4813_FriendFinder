@@ -1,5 +1,5 @@
 // import backend function
-import { fetchUserProfile } from '/COP4813_FriendFinder/Backend/BusinessLogic/backend-functions.js';
+import { fetchUserProfile } from 'https://friendshipmatchmaking.infinityfreeapp.com/Backend/BusinessLogic/backend-functions.js';
 
 document.addEventListener('DOMContentLoaded', () => {    
     // use profileUserId that was passed from PHP
@@ -80,7 +80,10 @@ function updateProfileDetails(userProfile) {
     if (profileImg) {
         // use provided picture
         // or default icon
-        profileImg.src = userProfile.pfpUrl || '/COP4813_FriendFinder/Backend/images/icons/pink-profile-icon.webp';;
+        if (userProfile.pfpUrl)
+            profileImg.src = '/Backend/images/icons/' + userProfile.pfpUrl;
+        else
+            profileImg.src = '/Backend/images/icons/pink-profile-icon.webp';
     }
     
     // get the contact-details
@@ -100,7 +103,7 @@ function updateProfileDetails(userProfile) {
             </div>
             <div class="contact-item">
                 <span class="contact-label">Phone #:</span>
-                <span>${userProfile.phone || 'Not provided'}</span>
+                <span>${userProfile.phone_number || 'Not provided'}</span>
             </div>
         `;
     }

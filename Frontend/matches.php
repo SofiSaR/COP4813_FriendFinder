@@ -1,4 +1,6 @@
 <?php
+    // use query.php to run SQL queries
+    require_once __DIR__.'/../Backend/Database/query.php';
     // initialize page name
     $page_name = basename(__FILE__);
 
@@ -9,23 +11,9 @@
         'params' => ['s', $page_name]
     ]);
 
-    // initialize cURL to send the 
-    // query to the database API
-    $ch = curl_init();
-
-    // set the cURL options
-    curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen($jsonSQL)
-    ]);
-
     // execute the query 
     // and get the result
-    $json_response = curl_exec($ch);
+    $json_response = runSQLQuery($jsonSQL);
     $result = json_decode($json_response, true);
 
     // if the query failed, return the error message
@@ -36,15 +24,12 @@
         ]);
     }
 
-    // close the connection
-    curl_close($ch);
-
     // start the session
     session_start();
 
     // user must be logged in
     if (!isset($_SESSION['user_id']))
-        header('Location: /COP4813_FriendFinder/Frontend/login.php');
+        header('Location: https://friendshipmatchmaking.infinityfreeapp.com/Frontend/login.php');
 ?>
 <!-- for document structure, meta tags, and title -->
 <!-- HTML5 document type -->
@@ -59,9 +44,9 @@
     <!-- for page title -->
     <title>Friendship Matchmaking - Matches</title>
     <!-- for CSS stylesheet -->
-    <link rel="stylesheet" href="css/matches.css">
+    <link rel="stylesheet" href="/Frontend/css/matches.css">
     <!-- for the JS script -->
-    <script type="module" src="js/matches.js"></script>
+    <script type="module" src="/Frontend/js/matches.js"></script>
 </head>
 <body>
     <header>
