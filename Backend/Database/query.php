@@ -5,10 +5,10 @@
     error_reporting(E_ALL);
 
     // set database connection parameters
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "FriendFinder";
+    $servername = "sql308.infinityfree.com";
+    $username = "if0_39047183";
+    $password = "POWer4ll";
+    $dbname = "if0_39047183_FriendFinder";
 
     // try to connect to the database server
     $conn = new mysqli($servername, $username, $password);
