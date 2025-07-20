@@ -1,5 +1,5 @@
 // import backend functions
-import { checkId, fetchScores } from '/COP4813_FriendFinder/Backend/BusinessLogic/backend-functions.js';
+import { getId, fetchScores } from '/COP4813_FriendFinder/Backend/BusinessLogic/backend-functions.js';
 
 // create a class for 
 // results section
@@ -70,16 +70,18 @@ class ResultsSection extends HTMLElement {
     }
 
     // fetch user's scores
-    connectedCallback() {
-        checkId().then(userIdData => { 
-            fetchScores(userIdData.user_id).then(scoreData => { this.showScores(scoreData[0]); });
-        });
+    async connectedCallback() {
+        const userId = await getId();
+        if (!userId) {
+            console.error("User ID not found. Cannot fetch scores.");
+            return;
+        }
+        const scoreData = await fetchScores(userId);
+        this.showScores(scoreData[0]);
     }
 
     // display user's scores
     showScores(scores) {
-        console.log("Scores:", scores);
-
         // set the scores
         const scoreSet = [ scores.sociability_score, scores.adventurousness_score, scores.reliability_score, scores.athleticism_score, scores.availability_score ];
 

@@ -2,33 +2,42 @@
     // initialize page name
     $page_name = basename(__FILE__);
 
-    // database connection parameters
-    $conn = new mysqli("localhost", "root", "", "FriendFinder");
+    // create the statement for updating the page visit count
+    // for the current page
+    $jsonSQL = json_encode([
+        'sql' => "UPDATE Page_Visits SET visit_count = visit_count + 1 WHERE page_name = ?",
+        'params' => ['s', $page_name]
+    ]);
 
-    // handle connection 
-    // error
-    if ($conn->connect_error) {
-        echo "<script>console.log('Error connecting to database');</script>";
-        die("Connection failed: " . $conn->connect_error);
+    // initialize cURL to send the 
+    // query to the database API
+    $ch = curl_init();
+
+    // set the cURL options
+    curl_setopt($ch, CURLOPT_URL, 'http://localhost/COP4813_FriendFinder/Backend/Database/query.php');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonSQL);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($jsonSQL)
+    ]);
+
+    // execute the query 
+    // and get the result
+    $json_response = curl_exec($ch);
+    $result = json_decode($json_response, true);
+
+    // if the query failed, return the error message
+    if (!$result['success']) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Page visits query failed: ' . $result['message']
+        ]);
     }
 
-    // update the page visit count
-    // for the current page
-    $stmt = $conn->prepare("UPDATE Page_Visits SET visit_count = visit_count + 1 WHERE page_name = ?");
-
-    // bind the page name to 
-    // the prepared statement
-    $stmt->bind_param("s", $page_name);
-
-    // execute the query
-    $stmt->execute();
-
-    // close prepared 
-    // statement
-    $stmt->close();
-
-    // close connection
-    $conn->close();
+    // close the connection
+    curl_close($ch);
 ?>
 <!DOCTYPE html>
 <!-- doc language is english -->
@@ -74,9 +83,7 @@
                     <p id="empty-fields-msg">All fields are required.</p>
                     <p id="invalid-email-msg">Invalid email.</p>
                     <p id="invalid-login-msg">Incorrect email or password.</p>
-                    <p id="invalid-password-msg">Password must be at least 8 characters.</p>
-                    <p id="existing-email-msg">Email already exists.</p>
-                    <p id="login-failure-msg">Login Failure.</p>
+                    <p id="login-failure-msg">Login failure.</p>
                     <!-- for login button -->
                     <button type="submit" id="login-button" value="login">Log In</button>
                 </form>

@@ -1,6 +1,6 @@
-// import functions to check id, submit quiz responses,
+// import functions to get id, submit quiz responses,
 // and fetch questions from backend
-import { checkId, submitQuizResponses, fetchQuestions } from '../../Backend/BusinessLogic/backend-functions.js';
+import { getId, submitQuizResponses, fetchQuestions } from '../../Backend/BusinessLogic/backend-functions.js';
 
 // create JSON object 
 // to hold inputted answers
@@ -9,7 +9,8 @@ let answers = {};
 document.addEventListener('DOMContentLoaded', () => {
     // call function to fetch
     // the questions
-    fetchQuestions().then(questions => {
+    fetchQuestions()
+    .then(questions => {
         populateQuestionCont(questions);
     });
 
@@ -18,15 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // if a user clicks on
     // the submit button
-    submitButton.addEventListener('click', () => {
-        // call function to
-        // submit quiz responses
-        checkId().then(userIdData => {
-            submitQuizResponses(answers, userIdData.user_id);
-        });
+    submitButton.addEventListener('click', async () => {
+        submitQuizResponses(answers);
 
         // redirect to quiz results page
-        // window.location.href = 'quiz-results.php';
+        window.location.href = 'quiz-results.php';
     });
 });
 
@@ -57,7 +54,7 @@ function populateQuestionCont(questions) {
                 <input type="radio" id="option-${question.id}-5" name="bar-${question.id}" value="5">
                 <label for="option-${question.id}-5">5</label>
             </div>
-            <button id="scroll-button">Scroll to The Next Question</button>
+            <button class="scroll-button">Scroll to The Next Question</button>
         </div>
     `).join('');
 

@@ -1,11 +1,11 @@
 // import backend functions
-import { fetchMatches, checkId, fetchUserProfile } from '/COP4813_FriendFinder/Backend/BusinessLogic/backend-functions.js';
+import { fetchMatches, getId, fetchUserProfile } from '/COP4813_FriendFinder/Backend/BusinessLogic/backend-functions.js';
 
 
 // call the function to load
 // the matches when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    checkId().then(userIdData => { loadMatches(userIdData.user_id); });
+    loadMatches();
 });
 
 // create profile HTML element
@@ -52,7 +52,7 @@ function viewProfile(userId) {
 
 // function to load and display
 // user's top 20 matches
-async function loadMatches(userId) {
+async function loadMatches() {
     try {
         // get the main-container section
         // section from the matches page
@@ -61,21 +61,18 @@ async function loadMatches(userId) {
         // show that the matches 
         // are loading
         mainContainer.innerHTML = '<div class="loading">Loading your matches...</div>';
-
-        // if the user is not logged in
-        if (!userId) {
-            // display error message
-            mainContainer.innerHTML = '<div class="error">Unable to load matches. Please log in to view your matches.</div>';
-
-            // redirect to login page
-            window.location.href = '/COP4813_FriendFinder/Frontend/login.php';
-
-            return;
-        }
         
         // call function to 
         // fetch top 20 matches
-        const matchesData = await fetchMatches(userId, 20);
+        const matchesData = await fetchMatches(20);
+
+        // if matches cannot be found
+        if (!matchesData || matchesData.length === 0) {
+            // display error message
+            mainContainer.innerHTML = '<div class="error">No matches</div>';
+
+            return;
+        }
         
         // clear loading state
         mainContainer.innerHTML = '';
@@ -115,7 +112,7 @@ window.viewProfile = viewProfile;
 // function to load
 // the matches again
 function refreshMatches() {
-    checkId().then(userIdData => { loadMatches(userIdData.user_id); });
+    loadMatches();
 }
 
 // make refresh function 

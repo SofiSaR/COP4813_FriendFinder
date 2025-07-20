@@ -20,25 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // function to get and display
 // user's profile information
 async function loadUserProfile(userId) {
-    try {
-        // use fetchUserProfile function
-        // to fetch user's profile array
-        const userProfileArray = await fetchUserProfile(userId);
-        
-        // get the first user's profile
-        const userProfile = userProfileArray[0];
-        
-        // if user's profile
-        // doesn't exist
-        if (!userProfile) {
-            throw new Error('User profile not found');
-        }
-        
-        // use function to update 
-        // profile details
-        updateProfileDetails(userProfile);
-        
-    } catch (error) {        
+    // use fetchUserProfile function
+    // to fetch user's profile array
+    const userProfileArray = await fetchUserProfile(userId);
+    
+    // get the first user's profile
+    const userProfile = userProfileArray[0];
+    
+    // if user's profile
+    // doesn't exist
+    if (!userProfile) {
         // get the contact-details
         // section from the profile page
         // and display error message
@@ -49,9 +40,8 @@ async function loadUserProfile(userId) {
                     <span class="contact-label">Error:</span>
                     <span>Failed to load profile</span>
                 </div>
-            `;
+            `
         }
-        
         // get the bio-content
         // section from the profile page
         // and display error message
@@ -60,6 +50,10 @@ async function loadUserProfile(userId) {
             bioContent.innerHTML = '<p>Error loading bio</p>';
         }
     }
+    
+    // use function to update 
+    // profile details
+    updateProfileDetails(userProfile);
 }
 
 // function to update profile details

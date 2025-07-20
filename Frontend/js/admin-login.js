@@ -32,27 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // are empty
         if (!email || !password) {
             // display error msg
-            errorMessages[msgIndex].style.display = '';
+            document.getElementById('empty-fields-msg').style.display = '';
             return;
         }
-
-        // hide the error msg regarding
-        // empty fields and increment msg index
-        errorMessages[msgIndex].style.display = 'none';
-        msgIndex++;
 
         // if the email has an 
         // invalid pattern
         if (!emailPattern.test(email)) {
             // display error msg
-            errorMessages[msgIndex].style.display = '';
+            document.getElementById('invalid-email-msg').style.display = '';
             return;
         }
-
-        // hide the error msg regarding
-        // invalid email pattern and increment msg index
-        errorMessages[msgIndex].style.display = 'none';
-        msgIndex++;
 
         // if the admin is logging in
         if (action === 'login') {
@@ -70,28 +60,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: loginData,
                 credentials: 'same-origin'
             })
-            .then(response => response.text())
-            .then(text => {
-                // log text to console for debugging
-                console.log(text);
-
+            .then(response => response.json())
+            .then(result => {
                 // if credentials are
                 // valid (successful login)
-                if (text === 'true') {
+                if (result.status === 'true') {
                     // redirect to the admin page
                     window.location.href = 'admin.php';
-                    return;
+                }
+                else if (result.status === 'false') {
+                    // display invalid login msg
+                    document.getElementById('invalid-login-msg').style.display = '';
                 }
                 else {
-                    // display error msg
-                    errorMessages[msgIndex].style.display = '';
-                    return;
+                    // display login failure msg
+                    document.getElementById('login-failure-msg').style.display = '';
                 }
             });
-            return;
         }
-        // hide the error msg regarding
-        // login failure
-        errorMessages[msgIndex].style.display = 'none';
     });
 });

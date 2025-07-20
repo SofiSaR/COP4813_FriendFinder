@@ -1,24 +1,16 @@
 <?php
-    // start the session
-    session_start();
-
     // set content type to JSON
     header('Content-Type: application/json');
 
-    // user must be logged in as admin
-    if (!isset($_SESSION['user_id']) || $_SESSION['admin'] !== true)
-        header('Location: /COP4813_FriendFinder/Frontend/admin-login.php');
+    $userIdData = json_decode(file_get_contents('php://input'), true);
+    $userId = $userIdData['user_id'];
 
-    // prepare and execute query 
-    // to fetch user data
-    $jsonSQL = json_encode(['sql' => "
-        SELECT 
-            COUNT(*) as total_users,
-            SUM(account_active = 1) as active_users,
-            SUM(account_active = 0) as inactive_users
-        FROM Users
-    "]);
-    
+    // encode the SQL query that gets the user with the given ID
+    $jsonSQL = json_encode([
+        'sql' => "SELECT * FROM Quiz_Scores WHERE user_id = ?;",
+        'params' => ['i', $userId]
+    ]);
+
     // initialize cURL to send the 
     // query to the database API
     $ch = curl_init();
@@ -38,33 +30,30 @@
     $json_response = curl_exec($ch);
     $result = json_decode($json_response, true);
 
-    // if the result was unsuccessful, say the active and inactive users query failed
+    // if the result was unsuccessful, say the quiz scores query failed
     if (!$result['success']) {
         echo json_encode([
             'success' => false,
-            'message' => 'Active and inactive users query failed: ' . $result['message']
+            'message' => 'Quiz scores query failed: ' . $result['message']
         ]);
         // close the connection
         curl_close($ch);
         exit();
     }
 
-    // check if user exists and is active
-    if ($result['data'] && count($result['data']) > 0) {
-        // fetch user data
-        $user_data = $result['data'];
-        
+    // check if the result contains data
+    if (count($result['data']) > 0) {
         // return success response
-        // with user data
+        // with score data
         echo json_encode([
             'success' => true,
-            'data' => $user_data
+            'data' => $result['data']
         ]);
     } else {
-        // return failure message since user activity data was not found
+        // quiz scores don't exist
         echo json_encode([
             'success' => false,
-            'message' => 'User activity data not found'
+            'message' => 'Quiz scores not found'
         ]);
     }
 

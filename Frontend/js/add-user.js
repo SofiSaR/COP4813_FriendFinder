@@ -25,13 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 formData.set(checkbox.name, checkbox.checked ? 1 : 0);
         });
 
-        // log formData to console for debugging
-        console.log('Form Data:', Object.fromEntries(formData.entries()));
-
         // send formData to admin.php script
         fetch(`../Backend/Database/admin.php`, {
             method: 'POST',
             body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            // handle the response from the server
+            if (result.success) {
+                // user added successfully
+                console.log('User added successfully:', result.message);
+            }
+            else {
+                // handle errors
+                console.error('Error adding user:', result.message);
+            }
         });
 
         // redirect to admin.php, so we can see

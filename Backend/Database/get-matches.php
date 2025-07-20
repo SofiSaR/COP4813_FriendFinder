@@ -12,10 +12,27 @@
     // get user ID from session
     $user_id = $_SESSION['user_id'];
 
+    $limitNum = json_decode(file_get_contents('php://input'), true);
+    $limit = $limitNum['limit_num'] ?? null;
+
     // encode the SQL query that gets the user with the given ID
     $jsonSQL = json_encode([
-        'sql' => "SELECT * FROM Users WHERE id = ? AND account_active = 1",
-        'params' => ['i', $user_id]
+        'sql' => 
+            "SELECT Users.*,
+                (100 - (
+                    (0.20 * ABS(other_users_scores.sociability_score - this_users_scores.sociability_score)) +
+                    (0.20 * ABS(other_users_scores.adventurousness_score - this_users_scores.adventurousness_score)) +
+                    (0.20 * ABS(other_users_scores.reliability_score - this_users_scores.reliability_score)) +
+                    (0.20 * ABS(other_users_scores.athleticism_score - this_users_scores.athleticism_score)) +
+                    (0.20 * ABS(other_users_scores.availability_score - this_users_scores.availability_score))
+                )) AS similarity_score
+            FROM Users
+            JOIN Quiz_Scores other_users_scores ON other_users_scores.user_id = Users.id
+            JOIN Quiz_Scores this_users_scores ON this_users_scores.user_id = ?
+            WHERE Users.id != ?
+            ORDER BY similarity_score
+            DESC LIMIT ?;",
+        'params' => ['iii', $user_id, $user_id, $limit]
     ]);
 
     // initialize cURL to send the 
@@ -37,34 +54,30 @@
     $json_response = curl_exec($ch);
     $result = json_decode($json_response, true);
 
-    // if the result was unsuccessful, say the profile details query failed
+    // if the result was unsuccessful, say the match retrieval query failed
     if (!$result['success']) {
         echo json_encode([
             'success' => false,
-            'message' => 'Profile details query failed: ' . $result['message']
+            'message' => 'Match retrieval query failed: ' . $result['message']
         ]);
         // close the connection
         curl_close($ch);
         exit();
     }
 
-    // check if user exists and is active
+    // check if the result contains data
     if (count($result['data']) > 0) {
-        // fetch user data
-        $user_data = $result['data'];
-
         // return success response
-        // with user data
+        // with score data
         echo json_encode([
             'success' => true,
-            'data' => $user_data
+            'data' => $result['data']
         ]);
     } else {
-        // user doesn't exist
-        // or their account is inactive
+        // matches not found
         echo json_encode([
             'success' => false,
-            'message' => 'User not found or account inactive'
+            'message' => 'Matches not found'
         ]);
     }
 

@@ -15,6 +15,14 @@
   }
 }
 
+.scores-title {
+    font-family: var(--common-font);
+    font-weight: bold;
+    font-size: 24px;
+    color: var(--signature-purple);
+    margin-bottom: 20px;
+}
+
 .score-row {
     margin-bottom: 10px;
     font-size: 20px;

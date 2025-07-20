@@ -1,5 +1,5 @@
 // import backend functions
-import { checkId, fetchMatches } from '/COP4813_FriendFinder/Backend/BusinessLogic/backend-functions.js';
+import { fetchMatches } from '/COP4813_FriendFinder/Backend/BusinessLogic/backend-functions.js';
 
 // create a class for 
 // recommended friends
@@ -33,28 +33,29 @@ class RecommendedFriends extends HTMLElement {
         `;
     }
 
-    connectedCallback() {
+    async connectedCallback() {
         // get recommednations-list
         const recommendationsList = this.shadowRoot.getElementById('recommendations-list');
 
         // fetch three matches and
         // display them
-        checkId().then(userIdData => { 
-            fetchMatches(userIdData.user_id, 3).then(matches => {
-                recommendationsList.innerHTML = matches.map(match => `
-                    <div class="friend-card">
-                        <div class="name-and-circle">
-                            <span class="friend-name">${match.first_name}</span>
-                            <span class="match-circle">
-                                <span class="inner-circle">${Math.round(match.similarity_score)}%</span>
-                                <span class="match-circle-circle" style="background: conic-gradient(var(--dark-pink) calc(${match.similarity_score}*3.6deg), transparent 0deg);"></span>
-                            </span>
-                        </div>
-                        <button class="view-profile" onclick="window.location.href='profile.php?userId=${match.id}'">View Profile</button>
+        const matches = await fetchMatches(3);
+        if (matches && matches.length > 0) {
+            recommendationsList.innerHTML = matches.map(match => `
+                <div class="friend-card">
+                    <div class="name-and-circle">
+                        <span class="friend-name">${match.first_name}</span>
+                        <span class="match-circle">
+                            <span class="inner-circle">${Math.round(match.similarity_score)}%</span>
+                            <span class="match-circle-circle" style="background: conic-gradient(var(--dark-pink) calc(${match.similarity_score}*3.6deg), transparent 0deg);"></span>
+                        </span>
                     </div>
-                `).join('');
-            });
-        });
+                    <button class="view-profile" onclick="window.location.href='profile.php?userId=${match.id}'">View Profile</button>
+                </div>
+            `).join('');
+        }
+        else
+            recommendationsList.innerHTML = '<p>No recommendations available.</p>';
     }
 }
 

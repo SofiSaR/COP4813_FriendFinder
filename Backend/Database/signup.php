@@ -11,8 +11,10 @@
     // hash the password
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $check_sql = "SELECT id FROM Users WHERE email = '$email'";
-    $jsonSQL = json_encode(['sql' => $check_sql]);
+    $jsonSQL = json_encode([
+        'sql' => "SELECT id FROM Users WHERE email = ?",
+        'params' => ['s', $email]
+    ]);
 
     // initialize cURL to send the 
     // query to the database API
@@ -33,14 +35,33 @@
     $json_response = curl_exec($ch);
     $result = json_decode($json_response, true);
 
-    if (!empty($result)) {
-        echo 'false';
+    // if the query failed, return the error message
+    if (!$result['success']) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Check for user pre-existence query failed: ' . $result['message']
+        ]);
+        // close the connection
+        curl_close($ch);
+        exit();
+    }
+
+    // if user already exists, return false
+    if (count($result['data']) > 0) {
+        echo json_encode([
+            'status' => 'false',
+            'message' => 'User already exists'
+        ]);
+        // close the connection
+        curl_close($ch);
         exit();
     }
 
     // insert the user into the database
-    $insert_sql = "INSERT INTO Users (first_name, last_name, email, pwd) VALUES ('$firstName', '$lastName', '$email', '$hashedPassword')";
-    $jsonSQL = json_encode(['sql' => $insert_sql]);
+    $jsonSQL = json_encode([
+        'sql' => "INSERT INTO Users (first_name, last_name, email, pwd) VALUES (?, ?, ?, ?)",
+        'params' => ['ssss', $firstName, $lastName, $email, $hashedPassword]
+    ]);
 
     // reset the cURL connection
     curl_reset($ch);
@@ -58,10 +79,23 @@
     // execute the query 
     curl_exec($ch);
 
+    // if the query failed, return the error message
+    if (!$result['success']) {
+        echo json_encode([
+            'status' => 'failed',
+            'message' => 'User insertion failed: ' . $result['message']
+        ]);
+        // close the connection
+        curl_close($ch);
+        exit();
+    }
+
     // get the user ID 
     // from the database
-    $get_id_sql = "SELECT id FROM Users WHERE email = '$email'";
-    $jsonSQL = json_encode(['sql' => $get_id_sql]);
+    $jsonSQL = json_encode([
+        'sql' => "SELECT id FROM Users WHERE email = ?",
+        'params' => ['s', $email]
+    ]);
 
     // reset the cURL connection
     curl_reset($ch);
@@ -81,18 +115,35 @@
     $json_response = curl_exec($ch);
     $result = json_decode($json_response, true);
 
-    if (!empty($result)) {
+    // if the query failed, return the error message
+    if (!$result['success']) {
+        echo json_encode([
+            'status' => 'failed',
+            'message' => 'Could not check for successful insertion: ' . $result['message']
+        ]);
+        // close the connection
+        curl_close($ch);
+        exit();
+    }
+
+    if (count($result['data']) > 0) {
         // store user ID for session 
         // and history logging
-        $_SESSION['user_id'] = $result[0]['id'];
+        $_SESSION['user_id'] = $result['data'][0]['id'];
 
         // close the session
         session_write_close();
 
         // return success
-        echo 'true';
+        echo json_encode([
+            'status' => 'true',
+            'message' => 'Registration successful'
+        ]);
     }
     else
         // registration failed
-        echo 'failed';
+        echo json_encode([
+            'status' => 'failed',
+            'message' => 'Registration failed'
+        ]);
 ?>

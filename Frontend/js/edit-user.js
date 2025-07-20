@@ -1,7 +1,7 @@
 // import fetch user profile function from backend
 import { fetchUserProfile } from '../../Backend/BusinessLogic/backend-functions.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     // get the user id from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('userId');
@@ -13,29 +13,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // use user's id to fetch
     // their information
-    fetchUserProfile(userId)
-    .then(user => {
-        // get user's current info
-        // and fill form elements with it
-        const userInfo = [user[0].pfpUrl, user[0].first_name, user[0].last_name, user[0].phone_number, 
-        user[0].email, user[0].pwd, user[0].bio, user[0].bio_approved, user[0].account_active];
+    const user = await fetchUserProfile(userId);
 
-        // loop through each form element
-        formElementsArray.forEach((element, index) => {
-            if (index < userInfo.length) {
-                // if the form element
-                // contains a checkbox
-                if (element.type === 'checkbox') {
-                    // set checkbox to true if 1
-                    // and false if 0
-                    element.checked = userInfo[index] === '1';
-                } else {
-                    // set the value for non-checkbox
-                    // form elements
-                    element.value = userInfo[index];
-                }
+    // get user's current info
+    // and fill form elements with it
+    const userInfo = [user[0].pfpUrl, user[0].first_name, user[0].last_name, user[0].phone_number, 
+    user[0].email, user[0].pwd, user[0].bio, user[0].bio_approved, user[0].account_active];
+
+    // loop through each form element
+    formElementsArray.forEach((element, index) => {
+        if (index < userInfo.length) {
+            // if the form element
+            // contains a checkbox
+            if (element.type === 'checkbox') {
+                // set checkbox to true if 1
+                // and false if 0
+                element.checked = userInfo[index] === '1';
+            } else {
+                // set the value for non-checkbox
+                // form elements
+                element.value = userInfo[index];
             }
-        });
+        }
     });
 
     // get edit-user-form and use submit event listener
@@ -74,10 +73,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(Object.fromEntries(formData.entries()))
+        })
+        .then(response => response.json())
+        .then(result => {
+            // if the edit was successful
+            if (result.success) {
+                // redirect to admin.php, so we can see
+                // the table with the updated user info
+                console.log('User updated successfully:', result.message);
+                window.location.href = 'admin.php';
+            }
+            // otherwise, log an error message
+            else {
+                console.error('Error updating user:', result.message);
+                return;
+            }
         });
-
-        // redirect to admin.php, so we can see
-        // the table with the updated user info
-        window.location.href = 'admin.php';
     });
 });

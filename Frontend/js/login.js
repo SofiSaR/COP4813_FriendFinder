@@ -88,20 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // hide the error msg regarding
-        // empty fields
-        document.getElementById('empty-fields-msg').style.display = 'none';
-
         // if email pattern is invalid
         if (!emailPattern.test(email)) {
             // display error msg
             document.getElementById('invalid-email-msg').style.display = '';
             return;
         }
-
-        // hide the error msg regarding
-        // invalid email pattern
-        document.getElementById('invalid-email-msg').style.display = 'none';
 
         // if user is logging in
         if (action === 'login') {
@@ -118,13 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: loginData,
                 credentials: 'same-origin'
             })
-            .then(response => response.text())
-            .then(text => {
-                // log text to console for debugging
-                console.log(text);
-
+            .then(response => response.json())
+            .then(result => {
                 // if login is successful
-                if (text === 'true') {
+                if (result.status === 'true') {
                     // redirect to the 
                     // profile page
                     window.location.href = 'profile.php';
@@ -132,30 +121,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 // if user's account is inactive
-                if (text === 'inactive') {
+                if (result.status === 'inactive') {
                     // display error msg
                     document.getElementById('inactive-acc-msg').style.display = '';
                     return;
                 }
 
-                // hide error msg about user's
-                // account being inactive
-                document.getElementById('inactive-acc-msg').style.display = 'none';
-
-                // if login fails 
-                // (incorrect email/password)
-                if (text === 'false') {
+                // if login fails due to incorrect credentials
+                if (result.status === 'false') {
                     // display error msg
                     document.getElementById('invalid-login-msg').style.display = '';
+                    return;
+                }
+
+                // if login fails due to other reasons
+                if (result.status === 'failed') {
+                    // display error msg
+                    document.getElementById('login-failure-msg').style.display = '';
                     return;
                 }
             });
             return;
         }
-
-        // hide error msg about failed login
-        // due to invalid credentials
-        document.getElementById('invalid-login-msg').style.display = 'none';
 
         // if user is signing up
         if (action === 'signup') {
@@ -166,10 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('invalid-password-msg').style.display = '';
                 return;
             }
-
-            // hide error msg about password
-            // length being too short
-            document.getElementById('invalid-password-msg').style.display = 'none';
 
             // create object to capture signup data
             const signupData = new FormData();
@@ -187,10 +170,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: signupData,
                 credentials: 'same-origin'
             })
-            .then(response => response.text())
-            .then(text => {
+            .then(response => response.json())
+            .then(result => {
                 // if signup is successful
-                if (text === 'true') {
+                if (result.status === 'true') {
                     // redirect to quiz page
                     window.location.href = 'quiz.php';
                     return;
@@ -198,27 +181,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // if user tries to sign up
                 // with an existing email
-                if (text === 'false') {
+                if (result.status === 'false') {
                     // display error msg
                     document.getElementById('existing-email-msg').style.display = '';
                     return;
                 }
 
-                // hide error msg about
-                // existing email being used
-                document.getElementById('existing-email-msg').style.display = 'none';
-
                 // if login fails after
                 // account is created
-                if (text === 'failed') {
+                if (result.status === 'failed') {
                     // display error msg
                     document.getElementById('signup-failure-msg').style.display = '';
                     return;
                 }
-
-                // hide error msg about
-                // login failure
-                document.getElementById('signup-failure-msg').style.display = 'none';
             });
             return;
         }

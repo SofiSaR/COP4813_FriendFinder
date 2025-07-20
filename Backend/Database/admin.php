@@ -1,45 +1,11 @@
 <?php
-    // initialize page name
-    $page_name = basename(__FILE__);
-
-    // database connection parameters
-    $conn = new mysqli("localhost", "root", "", "FriendFinder");
-
-    // handle connection 
-    // error
-    if ($conn->connect_error) {
-        echo "<script>console.log('Error connecting to database');</script>";
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // update the page visit count
-    // for the current page
-    $stmt = $conn->prepare("UPDATE Page_Visits SET visit_count = visit_count + 1 WHERE page_name = ?");
-
-    // bind the page name to 
-    // the prepared statement
-    $stmt->bind_param("s", $page_name);
-
-    // execute the query
-    $stmt->execute();
-
-    // close prepared 
-    // statement
-    $stmt->close();
-
-    // close connection
-    $conn->close();
-
     header('Content-Type: application/json');
     $method = $_SERVER['REQUEST_METHOD'];
 
     switch ($method) {
         case 'GET':
-            // get all users
-            $sql = "SELECT * FROM Users";
-
-            // encode the SQL query
-            $jsonSQL = json_encode(['sql' => $sql]);
+            // encode the SQL query for getting all users
+            $jsonSQL = json_encode(['sql' => "SELECT * FROM Users"]);
 
             // initialize cURL to send the 
             // query to the database API
@@ -59,29 +25,51 @@
             // and get the result
             $json_response = curl_exec($ch);
             $result = json_decode($json_response, true);
-            echo $json_response;
+
+            // if the result was unsuccessful, say the users query failed
+            if (!$result['success']) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Users query failed: ' . $result['message']
+                ]);
+                // close the connection
+                curl_close($ch);
+                break;
+            }
+
+            // otherwise, return the users
+            echo json_encode([
+                'success' => true,
+                'data' => $result['data']
+            ]);
+
+            // close the curl connection
+            curl_close($ch);
 
             break;
         case 'POST':
             // insert a new user
             // into the database
-            $sql = "
-                INSERT INTO Users (pfpUrl, first_name, last_name, phone_number, email, pwd, bio, bio_approved, account_active)
-                VALUES
-                (
-                    '{$_POST['pfpUrl']}',
-                    '{$_POST['first_name']}',
-                    '{$_POST['last_name']}',
-                    '{$_POST['phone_number']}',
-                    '{$_POST['email']}',
-                    '{$_POST['pwd']}',
-                    '{$_POST['bio']}',
-                    {$_POST['bio_approved']},
-                    {$_POST['account_active']}
-                );";
 
             // encode the SQL query    
-            $jsonSQL = json_encode(['sql' => $sql]);
+            $jsonSQL = json_encode([
+                'sql' => "
+                    INSERT INTO Users (pfpUrl, first_name, last_name, phone_number, email, pwd, bio, bio_approved, account_active)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+                ",
+                'params' => [
+                    'sssssssii', 
+                    $_POST['pfpUrl'], 
+                    $_POST['first_name'], 
+                    $_POST['last_name'], 
+                    $_POST['phone_number'], 
+                    $_POST['email'], 
+                    password_hash($_POST['pwd'], PASSWORD_DEFAULT), 
+                    $_POST['bio'], 
+                    $_POST['bio_approved'], 
+                    $_POST['account_active']
+                ]
+            ]);
 
             // initialize cURL to send the 
             // query to the database API
@@ -98,9 +86,29 @@
             ]);
 
             // execute the query 
-            // and get the text response
-            $text_response = curl_exec($ch);
-            echo $text_response;
+            // and get the result
+            $json_response = curl_exec($ch);
+            $result = json_decode($json_response, true);
+
+            // if the result was unsuccessful, say the user insert failed
+            if (!$result['success']) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'User insert failed: ' . $result['message']
+                ]);
+                // close the connection
+                curl_close($ch);
+                break;
+            }
+
+            // otherwise, return the success message
+            echo json_encode([
+                'success' => true,
+                'message' => $result['message']
+            ]);
+
+            // close the curl connection
+            curl_close($ch);
 
             break;
         case 'PUT':
@@ -108,22 +116,36 @@
             // in the database
             $json = file_get_contents('php://input');
             $data = json_decode($json, true);
-            $sql = "
-                UPDATE Users
-                SET pfpUrl = '{$data['pfpUrl']}',
-                    first_name = '{$data['first_name']}',
-                    last_name = '{$data['last_name']}',
-                    phone_number = '{$data['phone_number']}',
-                    email = '{$data['email']}',
-                    pwd = '{$data['pwd']}',
-                    bio = '{$data['bio']}',
-                    bio_approved = {$data['bio_approved']},
-                    account_active = {$data['account_active']}
-                WHERE id = {$data['id']};
-            ";
 
             // encode the SQL query    
-            $jsonSQL = json_encode(['sql' => $sql]);
+            $jsonSQL = json_encode([
+                'sql' => "
+                    UPDATE Users
+                    SET pfpUrl = ?,
+                        first_name = ?,
+                        last_name = ?,
+                        phone_number = ?,
+                        email = ?,
+                        pwd = ?,
+                        bio = ?,
+                        bio_approved = ?,
+                        account_active = ?
+                    WHERE id = ?;
+                ",
+                'params' => [
+                    'sssssssiii',
+                    $data['pfpUrl'],
+                    $data['first_name'],
+                    $data['last_name'],
+                    $data['phone_number'],
+                    $data['email'],
+                    password_hash($data['pwd'], PASSWORD_DEFAULT),
+                    $data['bio'],
+                    $data['bio_approved'],
+                    $data['account_active'],
+                    $data['id']
+                ]
+            ]);
 
             // initialize cURL to send the 
             // query to the database API
@@ -140,22 +162,44 @@
             ]);
 
             // execute the query 
-            // and get the text response
-            $text_response = curl_exec($ch);
-            echo $text_response;
+            // and get the result
+            $json_response = curl_exec($ch);
+            $result = json_decode($json_response, true);
+
+            // if the result was unsuccessful, say the user update failed
+            if (!$result['success']) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'User update failed: ' . $result['message']
+                ]);
+                // close the connection
+                curl_close($ch);
+                break;
+            }
+
+            // otherwise, return the success message
+            echo json_encode([
+                'success' => true,
+                'message' => $result['message']
+            ]);
+
+            // close the curl connection
+            curl_close($ch);
 
             break;
         case 'DELETE':
             // delete a user 
             // from the database
             $userId = $_GET['userId'];
-            $sql = "
-                DELETE FROM Users
-                WHERE id = {$userId};
-            ";
 
             // encode the SQL query    
-            $jsonSQL = json_encode(['sql' => $sql]);
+            $jsonSQL = json_encode([
+                'sql' => "
+                    DELETE FROM Users
+                    WHERE id = ?;
+                ",
+                'params' => ['i', $userId]
+            ]);
 
             // initialize cURL to send the 
             // query to the database API
@@ -172,15 +216,41 @@
             ]);
 
             // execute the query 
-            // and get the text response
-            $text_response = curl_exec($ch);
+            // and get the result
+            $json_response = curl_exec($ch);
+            $result = json_decode($json_response, true);
+
+            // if the result was unsuccessful, say the user deletion failed
+            if (!$result['success']) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'User deletion failed: ' . $result['message']
+                ]);
+                // close the connection
+                curl_close($ch);
+                break;
+            }
+
+            // otherwise, return the success message
+            echo json_encode([
+                'success' => true,
+                'message' => $result['message']
+            ]);
+
+            // close the curl connection
+            curl_close($ch);
+
             header('Location: /COP4813_FriendFinder/Frontend/admin.html');
 
             break;
         default:
-            // error handling
+            // if none of the above methods were used
+            // return a 405 Method Not Allowed response
             http_response_code(405);
-            echo json_encode(['error' => 'Method Not Allowed']);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Method not allowed'
+            ]);
             exit;
     }
 ?>
