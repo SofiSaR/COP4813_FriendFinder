@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // function to get and display
 // user's profile information
 async function loadUserProfile(userId) {
+    // set the user-id of the person whose results need to be shown
+    document.querySelector('results-section').setAttribute('user-id', userId);
+    
     // use fetchUserProfile function
     // to fetch user's profile array
     const userProfileArray = await fetchUserProfile(userId);
@@ -114,6 +117,11 @@ function updateProfileDetails(userProfile) {
     if (bioContent) {
         // update bio with text
         // or display message
-        bioContent.innerHTML = `<p>${userProfile.bio || 'Add a bio to let others know more about you!'}</p>`;
+        if (userProfile.bio_approved === 1 && userProfile.bio)
+            bioContent.innerHTML = `<p>${userProfile.bio}</p>`;
+        else if (userProfile.bio_approved === 0)
+            bioContent.innerHTML = `<p>Your bio has not been approved. Please wait for it to be reviewed by an administrator.</p>`;
+        else
+            bioContent.innerHTML = `<p>Contact the administrator to add a bio and let others know more about you!</p>`;
     }
 }

@@ -53,6 +53,11 @@
     <main>
         <!-- for the website title -->
         <h1 id="website-title">friendship<br>matchmaking</h1>
+        <!-- for the links to take admin to admin page / logout -->
+        <div class="links-container">
+            <a href="/Frontend/admin.php" class="admin-link">Admin Panel</a>
+            <a href="/Backend/BusinessLogic/admin-logout.php" class="logout-link">Logout</a>
+        </div>
         <!-- for the analytics page -->
         <div id="analytics-page">
             <!-- header -->
@@ -77,11 +82,6 @@
                 </div>
                 <div class="analytics-cards" id="interactions-stats"></div>
             </div>
-        </div>
-        <!-- for the links to take admin to admin page / logout -->
-        <div class="links-container">
-            <a href="/Frontend/admin.php" class="admin-link">Go to Admin Page</a>
-            <a href="/Frontend/logout.php" class="logout-link">Logout</a>
         </div>
     </main>
 </body>

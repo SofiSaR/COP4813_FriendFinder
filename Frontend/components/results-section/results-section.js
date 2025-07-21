@@ -1,9 +1,13 @@
 // import backend functions
-import { getId, fetchScores } from 'https://friendshipmatchmaking.infinityfreeapp.com/Backend/BusinessLogic/backend-functions.js';
+import { fetchScores } from 'https://friendshipmatchmaking.infinityfreeapp.com/Backend/BusinessLogic/backend-functions.js';
 
 // create a class for 
 // results section
 class ResultsSection extends HTMLElement {
+    static get observedAttributes() {
+        return ['user-id'];
+    }
+    
     // constructor
     constructor() {
         // call parent constructor
@@ -69,15 +73,21 @@ class ResultsSection extends HTMLElement {
         `;
     }
 
-    // fetch user's scores
-    async connectedCallback() {
-        const userId = await getId();
-        if (!userId) {
-            console.error("User ID not found. Cannot fetch scores.");
-            return;
+    async attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'user-id') {
+            if (newValue) {
+                const scoreData = await fetchScores(newValue);
+                if (!scoreData || scoreData.length === 0) {
+                    this.shadowRoot.querySelector('#results-section').innerHTML = '<p>Quiz not yet taken</p>';
+                    return;
+                }
+                this.showScores(scoreData[0]);
+            }
+            else {
+                console.error("User ID not found. Cannot fetch scores.");
+                return;
+            }
         }
-        const scoreData = await fetchScores(userId);
-        this.showScores(scoreData[0]);
     }
 
     // display user's scores

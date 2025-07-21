@@ -50,6 +50,11 @@
 <body>
     <!-- for the website title -->
     <h1 id="website-title">friendship<br>matchmaking</h1>
+    <!-- for the links to take user to profile page / logout -->
+    <div class="links-container">
+        <a href="/Frontend/profile.php" class="profile-link">My Profile</a>
+        <a href="/Backend/BusinessLogic/logout.php" class="logout-link">Logout</a>
+    </div>
     <!-- for the quiz results page -->
     <div id="results-page">
         <!-- header -->
@@ -57,11 +62,6 @@
         <!-- for the results section and recommended friends -->
         <results-section style="width: 100%;"></results-section>
         <recommended-friends></recommended-friends>
-        <!-- for the links to take user to profile page / logout -->
-        <div class="links-container">
-            <a href="/Frontend/profile.php" class="profile-link">Go to Profile Page</a>
-            <a href="/Frontend/logout.php" class="logout-link">Logout</a>
-        </div>
     </div>  
 </body>
 </html>

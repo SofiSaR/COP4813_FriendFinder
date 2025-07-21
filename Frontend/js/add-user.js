@@ -10,10 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // create object to capture form fields
         const formData = new FormData(this);
 
+        if (formData.get('pfpUrl') === '') {
+            // if pfpUrl is empty, set it to a default image
+            formData.set('pfpUrl', 'pink-profile-icon.webp');
+        }
+
         // get checkbox inputs in the form 
         // (bio approved and account active)
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    
+
         // loop through each checkbox
         checkboxes.forEach(checkbox => {
             // if name isn't in the formData
@@ -28,7 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // send formData to admin.php script
         fetch(`/Backend/BusinessLogic/admin.php`, {
             method: 'POST',
-            body: formData
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'add', ...Object.fromEntries(formData.entries()) })
         })
         .then(response => response.json())
         .then(result => {

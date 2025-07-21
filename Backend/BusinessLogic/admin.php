@@ -1,12 +1,21 @@
 <?php
+    // allow request methods
+    header("Access-Control-Allow-Origin: https://friendshipmatchmaking.infinityfreeapp.com");
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+    header("Access-Control-Allow-Headers: Content-Type");
+
     // use query.php to run SQL queries
     require __DIR__.'/../Database/query.php';
 
     header('Content-Type: application/json');
-    $method = $_SERVER['REQUEST_METHOD'];
+    
+    $json = file_get_contents('php://input');
+    $data = json_decode($json, true);
+
+    $method = $data['action'];
 
     switch ($method) {
-        case 'GET':
+        case 'get':
             // encode the SQL query for getting all users
             $jsonSQL = json_encode(['sql' => "SELECT * FROM Users"]);
 
@@ -31,7 +40,7 @@
             ]);
 
             break;
-        case 'POST':
+        case 'add':
             // insert a new user
             // into the database
 
@@ -43,15 +52,15 @@
                 ",
                 'params' => [
                     'sssssssii', 
-                    $_POST['pfpUrl'], 
-                    $_POST['first_name'], 
-                    $_POST['last_name'], 
-                    $_POST['phone_number'], 
-                    $_POST['email'], 
-                    password_hash($_POST['pwd'], PASSWORD_DEFAULT), 
-                    $_POST['bio'], 
-                    $_POST['bio_approved'], 
-                    $_POST['account_active']
+                    $data['pfpUrl'], 
+                    $data['first_name'], 
+                    $data['last_name'], 
+                    $data['phone_number'], 
+                    $data['email'], 
+                    password_hash($data['pwd'], PASSWORD_DEFAULT), 
+                    $data['bio'], 
+                    $data['bio_approved'], 
+                    $data['account_active']
                 ]
             ]);
 
@@ -76,11 +85,9 @@
             ]);
 
             break;
-        case 'PUT':
+        case 'update':
             // update a user 
             // in the database
-            $json = file_get_contents('php://input');
-            $data = json_decode($json, true);
 
             // encode the SQL query    
             $jsonSQL = json_encode([
@@ -133,10 +140,10 @@
             ]);
 
             break;
-        case 'DELETE':
+        case 'delete':
             // delete a user 
             // from the database
-            $userId = $_GET['userId'];
+            $userId = $data['userId'];
 
             // encode the SQL query    
             $jsonSQL = json_encode([

@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (element.type === 'checkbox') {
                 // set checkbox to true if 1
                 // and false if 0
-                element.checked = userInfo[index] === '1';
+                element.checked = userInfo[index] === 1;
             } else {
                 // set the value for non-checkbox
                 // form elements
@@ -47,6 +47,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // append user's id to the form
         formData.append('id', userId); 
+
+        if (formData.get('pfpUrl') === '') {
+            // if pfpUrl is empty, set it to a default image
+            formData.set('pfpUrl', 'pink-profile-icon.webp');
+        }
 
         // get checkbox inputs in the form 
         // (bio approved and account active)
@@ -68,11 +73,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // send formData to admin.php script
         fetch(`/Backend/BusinessLogic/admin.php`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(Object.fromEntries(formData.entries()))
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'update', ...Object.fromEntries(formData.entries()) })
         })
         .then(response => response.json())
         .then(result => {

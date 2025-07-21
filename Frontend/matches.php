@@ -52,6 +52,11 @@
     <header>
         <!-- for the website title -->
         <h1 id="website-title">friendship<br>matchmaking</h1>
+        <!-- for the links to take user to profile page / logout -->
+        <div class="links-container">
+            <a href="/Frontend/profile.php" class="profile-link">My Profile</a>
+            <a href="/Backend/BusinessLogic/logout.php" class="logout-link">Logout</a>
+        </div>
         <!-- for the matches icon -->
         <div id="matches-icon">
             <img src="../Backend/images/icons/match-icon.webp" alt="match icon"> 

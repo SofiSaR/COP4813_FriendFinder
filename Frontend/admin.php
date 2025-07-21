@@ -50,6 +50,11 @@
     <main>
         <!-- for the website title -->
         <h1 id="website-title">friendship<br>matchmaking</h1>
+        <!-- for the links to take admin to analytics dashboard / logout -->
+        <div class="links-container">
+            <a href="/Frontend/analytics-dash.php" class="analytics-dash-link">Analytics Dashboard</a>
+            <a href="/Backend/BusinessLogic/admin-logout.php" class="logout-link">Logout</a>
+        </div>
         <!-- for the admin page -->
         <div id="admin-page">
             <!-- main header -->
@@ -60,11 +65,6 @@
             <table id="user-management-table"></table>
             <!-- add user button -->
             <button id="add-user-button">Add User</button>
-        </div>
-        <!-- for the links to take admin to analytics dashboard / logout -->
-        <div class="links-container">
-            <a href="/Frontend/analytics-dash.php" class="analytics-dash-link">Go to Analytics Dashboard</a>
-            <a href="/Frontend/logout.php" class="logout-link">Logout</a>
         </div>
     </main>
 </body>

@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // if a user clicks on
     // the submit button
-    submitButton.addEventListener('click', async () => {
+    submitButton.addEventListener('click', async (e) => {
         // prevent default
         // form submission
         e.preventDefault();
@@ -43,15 +43,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!checkAllQuestionsAnswered()) {
             // display error message
             alert('Please answer all questions.');
-            return;
         }
+        else {
+            // call function to submit
+            // quiz responses
+            await submitQuizResponses(answers);
 
-        // call function to submit
-        // quiz responses
-        await submitQuizResponses(answers);
-
-        // redirect to quiz results page
-        window.location.href = '/Frontend/quiz-results.php';
+            // redirect to quiz results page
+            window.location.href = '/Frontend/quiz-results.php';
+        }
     });
 });
 

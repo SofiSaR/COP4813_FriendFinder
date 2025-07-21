@@ -29,14 +29,20 @@ button {
 
 .links-container {
     font-size: 35px;
-    text-align: center;
-    color: var(--dark-pink);
     position: fixed;
     top: 0px;
     right: 0px;
     margin: 16px;
     z-index: 1000;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row;
+    gap: 17px;
+
+    & > a {
+        font-size: 25px;
+        font-family: var(--title-font);
+        color: var(--signature-purple);
+        text-shadow: 1px 1px 1px var(--dark-pink);
+        text-decoration: none;
+    }
 }

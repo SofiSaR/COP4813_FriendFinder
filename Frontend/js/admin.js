@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // their personal details to the table
     // also add buttons for edit and delete functionality
     fetch(`/Backend/BusinessLogic/admin.php`, {
-        method: 'GET'
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'get' })
     })
     .then(response => response.json())
     .then(result => {
@@ -75,8 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const userId = button.getAttribute('user-id');
 
                     // use it to delete the user
-                    fetch(`../Backend/BusinessLogic/admin.php?userId=${userId}`, {
-                        method: 'DELETE'
+                    fetch("../Backend/BusinessLogic/admin.php", {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ action: 'delete', userId: userId })
                     })
                     .then(response => response.json())
                     .then(result => {

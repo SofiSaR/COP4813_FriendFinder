@@ -58,6 +58,7 @@
     <!-- for CSS stylesheet -->
     <link rel="stylesheet" href="/Frontend/css/profile.css">
     <!-- for the JS script -->
+    <script type="module" src="/Frontend/components/results-section/results-section.js"></script>
     <script type="module" src="/Frontend/js/profile.js"></script>
     <script>
         // make the profile user ID
@@ -70,6 +71,11 @@
     <main>
         <!-- for the website title -->
         <h1 id="website-title">friendship<br>matchmaking</h1>
+        <!-- for the links to take user to quiz results page / matches page / logout -->
+        <div class="links-container">
+            <a href="/Frontend/matches.php" class="matches-link">My Matches</a>
+            <a href="/Backend/BusinessLogic/logout.php" class="logout-link">Logout</a>
+        </div>
         <!-- for the profile page -->
         <div id="profile-page">
             <!-- for the main container -->
@@ -126,15 +132,10 @@
                                 <p>Loading...</p>
                             </div>
                         </div>
+                        <results-section></results-section>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- for the links to take user to quiz results page / matches page / logout -->
-        <div class="links-container">
-            <a href="/Frontend/quiz-results.php" class="quiz-results-link">Go to Quiz Results Page</a>
-            <a href="/Frontend/matches.php" class="matches-link">Go to Matches Page</a>
-            <a href="/Frontend/logout.php" class="logout-link">Logout</a>
         </div>
     </main>
 </body>
