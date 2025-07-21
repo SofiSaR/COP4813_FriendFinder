@@ -1,139 +1,93 @@
-/* import styling from general.css */
 @import url(general.css);
 
-/* container for matches icon */
 #matches-icon {
-    /* center the icon */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* container for matches page */
 #matches-page {
-    /* set width */
     width: 100%;
 }
 
-/* container for main content */
 #main-container {
-    /* center the content */
     display: flex;
     align-items: center;
-    /* make it a column */
     flex-direction: column;
-    /* add a gap */
     gap: 30px;
 }
 
-/* individual profile styling */
 .profile {
-    /* center the items */
     display: flex;
     align-items: center;
-    /* set width and max width */
     width: 100%;
     max-width: 900px;
-    /* add a gap */
     gap: 30px;
-    /* add padding */
     padding: 0 20px;
 }
 
-/* individual profile pic styling */
 .profile-pic {
-    /* do not shrink the picture */
     flex-shrink: 0;
 }
 
-/* individual profile pic img sizing */
 .profile-pic img {
-    /* set width and height */
     width: 120px;
     height: 120px;
-    /* make it a circle */
     border-radius: 50%;
-    /* set object fit */
     object-fit: cover;
 }
 
-/* individual name tag styling */
 .name-tag {
-    /* set position */
     position: relative;
-    /* center the content */
     display: flex;
     justify-content: center;
     align-items: center;
-    /* grow element */
     flex-grow: 1;
 }
 
-/* individual name tag img styling */
 .name-tag img {
-    /* set width, max width, and height */
     width: 100%;
     max-width: 400px;
     height: auto;
-    /* set object fit */
     object-fit: contain;
 }
 
-/* individual name tag text styling */
 .name-tag span {
-    /* set position */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* set font size, family, and color */
     font-size: 21px;
     font-family: 'Aptos';
     color: white;
-    /* preventy text from wrapping */
     white-space: nowrap;
 }
 
-/* individual profile link styling */
 .profile-link {
-    /* set position */
     position: relative;
-    /* center the content */
     display: flex;
     justify-content: center;
     align-items: center;
-    /* do not shrink the picture */
     flex-shrink: 0;
-    /* no background and border */
     background: none;
     border: none;
-    /* change to cursor pointer */
     cursor: pointer;
 }
 
-/* individual profile link img styling */
 .profile-link img {
-    /* set width */
     width: 400px;
-    /* set object fit */
     object-fit: contain;
-    /* add space at the top */
     margin-top: 14px;
 }
 
-/* individual profile link text styling */
 .profile-link span {
-    /* set position */
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* set font size, family, and color */
     font-size: 21px;
     font-family: 'Aptos';
     color: white;
-    /* preventy text from wrapping */
     white-space: nowrap;
-    /* add space at the top */
     margin-top: 5px;
 }

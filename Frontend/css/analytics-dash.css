@@ -60,7 +60,6 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    /* background: conic-gradient(var(--dark-pink) calc(63*3.6deg), transparent 0deg); */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -72,4 +71,18 @@ input, select {
     border-radius: 3px;
     padding: 3px;
     outline: none;
+}
+
+.links-container {
+    font-size: 35px;
+    text-align: center;
+    color: var(--dark-pink);
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    margin: 16px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

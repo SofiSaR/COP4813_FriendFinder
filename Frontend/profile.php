@@ -130,6 +130,12 @@
                 </div>
             </div>
         </div>
+        <!-- for the links to take user to quiz results page / matches page / logout -->
+        <div class="links-container">
+            <a href="/Frontend/quiz-results.php" class="quiz-results-link">Go to Quiz Results Page</a>
+            <a href="/Frontend/matches.php" class="matches-link">Go to Matches Page</a>
+            <a href="/Frontend/logout.php" class="logout-link">Logout</a>
+        </div>
     </main>
 </body>
 </html>

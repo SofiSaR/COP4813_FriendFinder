@@ -57,6 +57,11 @@
         <!-- for the results section and recommended friends -->
         <results-section style="width: 100%;"></results-section>
         <recommended-friends></recommended-friends>
-    </div>
+        <!-- for the links to take user to profile page / logout -->
+        <div class="links-container">
+            <a href="/Frontend/profile.php" class="profile-link">Go to Profile Page</a>
+            <a href="/Frontend/logout.php" class="logout-link">Logout</a>
+        </div>
+    </div>  
 </body>
 </html>

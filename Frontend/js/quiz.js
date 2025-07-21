@@ -6,7 +6,21 @@ import { getId, submitQuizResponses, fetchQuestions } from '../../Backend/Busine
 // to hold inputted answers
 let answers = {};
 
+// create const variable
+// for total # of questions
+const totalQuestions = 25;
+
 document.addEventListener('DOMContentLoaded', () => {
+    // check if user has already completed
+    // the quiz once (no retakes allowed)
+    if (localStorage.getItem('quizCompleted') === 'true') {
+        // call function to show
+        // already completed message
+        // and button to go to quiz results page
+        showAlreadyCompletedMessage();
+        return;
+    }
+
     // call function to fetch
     // the questions
     fetchQuestions()
@@ -20,12 +34,54 @@ document.addEventListener('DOMContentLoaded', () => {
     // if a user clicks on
     // the submit button
     submitButton.addEventListener('click', async () => {
-        submitQuizResponses(answers);
+        // prevent default
+        // form submission
+        e.preventDefault();
+
+        // check if all questions
+        // have been answered
+        if (!checkAllQuestionsAnswered()) {
+            // display error message
+            alert('Please answer all questions.');
+            return;
+        }
+
+        // call function to submit
+        // quiz responses
+        await submitQuizResponses(answers);
 
         // redirect to quiz results page
         window.location.href = '/Frontend/quiz-results.php';
     });
 });
+
+// create function to show
+// message stating that the user
+// has already completed the quiz once
+// and add button to go to quiz results page
+function showAlreadyCompletedMessage() {
+    // create quiz container
+    // with message and button
+    const quizContainer = document.getElementById('quiz-container');
+    quizContainer.innerHTML = `
+        <div style="text-align: center; padding: 50px;">
+            <h2>You Already Completed The Quiz!</h2>
+            <p>You can only take this quiz once.</p>
+            <button onclick="window.location.href='/Frontend/quiz-results.php'">
+                View Results
+            </button>
+        </div>
+    `;
+}
+
+// create function to check
+// if all quiz questions have 
+// been answered 
+function checkAllQuestionsAnswered() {
+    // check if number of 
+    // answered questions equals 25
+    return Object.keys(answers).length === totalQuestions;
+}
 
 // create function to populate
 // the questions container
@@ -67,8 +123,29 @@ function populateQuestionCont(questions) {
             if (input) {
                 input.addEventListener('change', (e) => {
                     answers[question.id] = input.value;
+
+                    // call function to change
+                    // submit button state
+                    changeSubmitButtonState();
                 });
             }
         }
     });
+}
+
+// create function to either enable / disable
+// submit button, based on whether all questions
+// have been answered or not
+function changeSubmitButtonState() {
+    // get the submit button
+    const submitButton = document.getElementById('submit-button');
+
+    // call function to check
+    // whether quiz is complete / incomplete
+    const isComplete = checkAllQuestionsAnswered();
+    
+    // enable / disable submit button
+    // based on isComplete variable
+    submitButton.disabled = !isComplete;
+    submitButton.textContent = isComplete ? 'Submit Quiz' : 'Please Answer All Questions';
 }

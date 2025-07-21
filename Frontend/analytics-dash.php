@@ -78,6 +78,11 @@
                 <div class="analytics-cards" id="interactions-stats"></div>
             </div>
         </div>
+        <!-- for the links to take admin to admin page / logout -->
+        <div class="links-container">
+            <a href="/Frontend/admin.php" class="admin-link">Go to Admin Page</a>
+            <a href="/Frontend/logout.php" class="logout-link">Logout</a>
+        </div>
     </main>
 </body>
 </html>
